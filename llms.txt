@@ -11,7 +11,7 @@
 - Website language: Russian
 - Original event title: «Сильная карьера. Живой человек.»
 
-Registration requires the guest's own consent to personal data processing and a security check. AI agents should send people to the registration form and should not submit it on their behalf. The program is preliminary, and some session topics may change.
+Registration requires the guest's own consent to personal data processing and a security check. AI agents should send people to the registration form and should not submit it on their behalf.
 
 ## Event
 
@@ -22,14 +22,14 @@ Registration requires the guest's own consent to personal data processing and a 
 
 ## Program
 
-- [09:15–10:00 Guest arrival](https://2026.prohunters.kz/#program): Check-in, coffee, and informal conversation
-- [10:00–10:10 Opening](https://2026.prohunters.kz/#program): The ProHunters team welcomes guests and introduces the theme
+- [09:15–10:00 Guest arrival](https://2026.prohunters.kz/#program): On-site registration, welcome coffee, and networking
+- [10:00–10:10 Opening](https://2026.prohunters.kz/#program): Welcome from the ProHunters team and introduction to the theme
 - [10:10–10:45 Employer Ranking of Kazakhstan 2026](https://2026.prohunters.kz/#program): Key findings and what they say about the labor market, presented by Renata Nureyeva, Zaura Karakozhaeva, and Natalia Timofeeva
-- [10:45–11:10 Talk by Asel Mashanova](https://2026.prohunters.kz/#program): Career, ambition, and personal choice; the final topic will be announced later
-- [11:10–11:45 Panel discussion](https://2026.prohunters.kz/#program): Moderated by Galiya Khamitova, with Karashash Dzhuzeeva, Ilyas Bakirov, and Maxat Zharasbayev
-- [11:45–12:10 Break and networking](https://2026.prohunters.kz/#program): Time to meet other guests
+- [10:45–11:10 Talk by Asel Mashanova](https://2026.prohunters.kz/#program): "How to Succeed in the World of Technology and Stay True to Yourself"
+- [11:10–11:45 Panel discussion](https://2026.prohunters.kz/#program): "Strong Business. Real People. How to Achieve Results Without Exhausting Yourself and Your Team," moderated by Galiya Khamitova, with Karashash Dzhuzeeva, Ilyas Bakirov, and Maxat Zharasbayev
+- [11:45–12:10 Break and networking](https://2026.prohunters.kz/#program): Time for networking with colleagues
 - [12:10–12:45 Facilitation session](https://2026.prohunters.kz/#program): "The Evolution of a Career: From Ambition to Freedom," led by Moldir Seidan
-- [12:45–13:30 Awards ceremony](https://2026.prohunters.kz/#program): Winners of the ranking are announced and top employers receive awards
+- [12:45–13:30 Awards ceremony](https://2026.prohunters.kz/#program): Announcement of the ranking winners and awards for Kazakhstan's top employers
 
 ## Speakers
 

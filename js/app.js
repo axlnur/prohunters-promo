@@ -1,53 +1,61 @@
 // Speaker Database
 // Портреты лежат в img/speakers: <slug>.jpg (960×1200) и <slug>-avatar.jpg (280×280).
+// Тема и подпись общие для всех участников панельной дискуссии
+const PANEL_DISCUSSION = {
+  topic: '«Сильный бизнес. Живые люди. Как достигать результатов, не\u00A0истощая себя и\u00A0команду»',
+  topicLabel: 'Панельная дискуссия на\u00A0тему:'
+};
+
+const RESEARCH_PRESENTATION_TOPIC = 'Презентация исследования «Рейтинг работодателей Казахстана\u00A02026»';
+
 const speakersData = {
   'renata-nureyeva': {
     name: 'Рената Нуреева',
     position: 'CEO\u00A0&amp; Founder, ProHunters',
     photo: 'img/speakers/renata-nureyeva.jpg',
     initials: 'РН',
-    bio: '<p>Основала агентство recruitment\u00A0&amp; executive\u00A0search\u00A0— ProHunters. Команда подбирает ключевых специалистов и\u00A0руководителей для\u00A0среднего и\u00A0крупного бизнеса в\u00A0Казахстане, Центральной\u00A0Азии, ОАЭ, Европе, Африке и\u00A0США.</p>',
-    topic: null
+    bio: '<p>Команда Ренаты закрывает вакансии ключевых специалистов и\u00A0руководителей для\u00A0среднего и\u00A0крупного бизнеса в\u00A0Казахстане, Центральной\u00A0Азии, ОАЭ, Европе, Африке и\u00A0США.</p>',
+    topic: RESEARCH_PRESENTATION_TOPIC
   },
   'zaura-karakozhaeva': {
     name: 'Заура Каракожаева',
     position: '<span class="nowrap">Консультант-аналитик</span> ProHunters\u00A0· HR\u00A0Advisor, NCOC',
     photo: 'img/speakers/zaura-karakozhaeva.jpg',
     initials: 'ЗК',
-    bio: '<p>14\u00A0лет работает в\u00A0HR и\u00A0Total\u00A0Rewards. Занимается компенсациями, аналитикой зарплат, грейдированием и\u00A0бюджетом на\u00A0персонал. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
-    topic: null
+    bio: '<p>14\u00A0лет опыта в\u00A0HR и\u00A0Total\u00A0Rewards. Эксперт по\u00A0компенсациям, аналитике зарплат, грейдированию и\u00A0бюджету персонала. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
+    topic: RESEARCH_PRESENTATION_TOPIC
   },
   'natalia-timofeeva': {
     name: 'Наталья Тимофеева',
     position: 'Внешний консультант ProHunters\u00A0· <span class="nowrap">ex-HRD</span> KPMG и\u00A0Исламского банка',
     photo: 'img/speakers/natalia-timofeeva.jpg',
     initials: 'НТ',
-    bio: '<p>Более 15\u00A0лет работает в\u00A0международных компаниях: IT, телеком, финансы и\u00A0консалтинг. Специализируется на\u00A0вознаграждении, организационном проектировании и\u00A0<span class="nowrap">HR-аналитике</span>. Лауреат премии «Хрустальная\u00A0пирамида».</p>',
-    topic: null
+    bio: '<p>Более 15\u00A0лет в\u00A0международных компаниях в\u00A0IT, телекоме, финансах и\u00A0консалтинге. Эксперт по\u00A0вознаграждению, организационном проектировании и\u00A0<span class="nowrap">HR-аналитике</span>. Лауреат премии «Хрустальная\u00A0пирамида».</p>',
+    topic: RESEARCH_PRESENTATION_TOPIC
   },
   'asel-mashanova': {
     name: 'Асель Машанова',
     position: 'Сооснователь LULU\u00A0Group',
     photo: 'img/speakers/asel-mashanova.jpg',
     initials: 'АМ',
-    bio: '<p>Предпринимательница. Создала проекты LULU, Metabody, Meta\u00A0Farm и\u00A0Sau\u00A0Apothecary о\u00A0красоте, здоровье и\u00A0осознанном образе жизни.</p>',
-    topic: 'О\u00A0карьере, амбициях и\u00A0личном выборе. Точную тему объявим позже.'
+    bio: '<p>Предпринимательница, создательница проектов LULU, Metabody, Meta\u00A0Farm и\u00A0Sau\u00A0Apothecary на\u00A0пересечении красоты, здоровья и\u00A0осознанного образа жизни.</p>',
+    topic: '«Как быть успешным в\u00A0мире технологий и\u00A0оставаться собой»'
   },
   'galiya-khamitova': {
     name: 'Галия Хамитова',
     position: 'Президент Erickson Coaching International Central\u00A0Asia',
     photo: 'img/speakers/galiya-khamitova.jpg',
     initials: 'ГХ',
-    bio: '<p>Коуч уровня PCC\u00A0ICF, <span class="nowrap">ментор-коуч</span> и\u00A0<span class="nowrap">коуч-супервизор</span> с\u00A0квалификациями ICF и\u00A0EMCC. Провела более 6\u00A0000\u00A0часов индивидуального коучинга с\u00A0<span class="nowrap">топ-руководителями</span>.</p>',
-    topic: null
+    bio: '<p>Профессиональный коуч PCC\u00A0ICF, <span class="nowrap">ментор-коуч</span> и\u00A0<span class="nowrap">коуч-супервизор</span> с\u00A0квалификациями ICF и\u00A0EMCC. Более 6\u00A0000\u00A0часов индивидуального коучинга <span class="nowrap">топ-руководителей</span>.</p>',
+    ...PANEL_DISCUSSION
   },
   'karashash-dzhuzeeva': {
     name: 'Карашаш Джузеева',
     position: 'Предпринимательница, издатель Vintage\u00A0Kazakhstan',
     photo: 'img/speakers/karashash-dzhuzeeva.jpg',
     initials: 'КД',
-    bio: '<p>Медиаменеджер и\u00A0общественный деятель. Основала журнал Vintage\u00A0Kazakhstan и\u00A0остаётся его издателем, развивает предпринимательские и\u00A0культурные проекты.</p>',
-    topic: null
+    bio: '<p>Медиаменеджер и\u00A0общественный деятель. Основательница и\u00A0издатель журнала Vintage\u00A0Kazakhstan, развивающая предпринимательские и\u00A0культурные проекты.</p>',
+    ...PANEL_DISCUSSION
   },
   'ilyas-bakirov': {
     name: 'Ильяс Бакиров',
@@ -55,15 +63,15 @@ const speakersData = {
     photo: 'img/speakers/ilyas-bakirov.jpg',
     initials: 'ИБ',
     bio: '<p>Предприниматель, учредитель Bakirov Construction Group и\u00A0член благотворительного фонда BIRLIK.</p>',
-    topic: null
+    ...PANEL_DISCUSSION
   },
   'maksat-zharasbaev': {
     name: 'Максат Жарасбаев',
     position: 'Генеральный директор Inditex\u00A0Kazakhstan\u00A0· Country\u00A0Manager',
     photo: 'img/speakers/maksat-zharasbaev.jpg',
     initials: 'МЖ',
-    bio: '<p>Руководит бизнесом Inditex в\u00A0Казахстане. Работал в\u00A0ритейле и\u00A0управлении персоналом на\u00A0международном уровне, в\u00A0том числе на\u00A0руководящих <span class="nowrap">HR-позициях</span> в\u00A0структуре группы.</p>',
-    topic: null
+    bio: '<p>Руководитель бизнеса Inditex в\u00A0Казахстане с\u00A0международным опытом в\u00A0ритейле и\u00A0управлении персоналом. Ранее занимал руководящие <span class="nowrap">HR-позиции</span> в\u00A0международной структуре группы.</p>',
+    ...PANEL_DISCUSSION
   },
   'moldir-seidan': {
     name: 'Молдир Сейдан',
@@ -72,6 +80,14 @@ const speakersData = {
     initials: 'МС',
     bio: '<p>Более 15\u00A0лет в\u00A0HR. Советник CEO ANORBANK, сертифицированный <span class="nowrap">executive-коуч</span>, автор подкастов о\u00A0бизнесе. Пятикратная победительница премии «<span class="nowrap">HR-бренд</span> Центральная\u00A0Азия» от\u00A0HeadHunter.</p>',
     topic: '«Эволюция карьеры: от\u00A0амбиций к\u00A0свободе»'
+  },
+  'grigory-shanin': {
+    name: 'Григорий Шанин',
+    position: 'Ведущий и\u00A0модератор мероприятия.',
+    photo: 'img/speakers/grigory-shanin.jpg',
+    initials: 'ГШ',
+    bio: '<p>Создаёт атмосферу живого диалога и\u00A0помогает гостям включаться в\u00A0обсуждение.</p>',
+    topic: null
   }
 };
 
@@ -85,7 +101,9 @@ const modalName = modal.querySelector('.modal-name');
 const modalPosition = modal.querySelector('.modal-position');
 const modalBio = modal.querySelector('.modal-bio');
 const modalTopic = modal.querySelector('.modal-topic');
+const modalTopicLabel = modal.querySelector('.modal-topic-label');
 const modalTopicText = modal.querySelector('.modal-topic-text');
+const DEFAULT_TOPIC_LABEL = modalTopicLabel.textContent;
 
 // Open Modal Function
 function openModal(speakerId) {
@@ -112,6 +130,7 @@ function openModal(speakerId) {
 
   // Show/hide topic section
   if (speaker.topic) {
+    modalTopicLabel.textContent = speaker.topicLabel || DEFAULT_TOPIC_LABEL;
     modalTopicText.textContent = speaker.topic;
     modalTopic.style.display = 'block';
   } else {
@@ -138,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', () => openModal(card.dataset.speaker));
   });
 
-  const speakerCards = document.querySelectorAll('.speaker-mini-card');
+  const speakerCards = document.querySelectorAll('.speaker-mini-card, .moderator-accent-block');
 
   speakerCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -215,6 +234,47 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
+// SPEAKER AVATAR CAROUSEL
+// ============================================
+
+// Порядок случайный при каждой загрузке, поэтому ни один спикер не закреплён на первом месте
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.querySelector('.bento-avatars');
+
+  if (!carousel) return;
+
+  const track = carousel.querySelector('.bento-avatars__track');
+  const avatars = [...track.children];
+
+  for (let index = avatars.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [avatars[index], avatars[swapIndex]] = [avatars[swapIndex], avatars[index]];
+  }
+
+  track.replaceChildren(...avatars);
+
+  // Три копии набора закрывают карточку любой ширины и делают цикл бесшовным
+  for (let copy = 0; copy < 3; copy += 1) {
+    avatars.forEach((avatar) => {
+      const clone = avatar.cloneNode(true);
+
+      // С клавиатуры доступен только первый набор, копии открываются мышью и касанием
+      clone.tabIndex = -1;
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+  }
+
+  track.addEventListener('click', (event) => {
+    const avatar = event.target.closest('.bento-avatar');
+
+    if (avatar) openModal(avatar.dataset.speaker);
+  });
+
+  carousel.classList.add('is-running');
+});
+
+// ============================================
 // REGISTRATION FORM
 // ============================================
 
@@ -226,9 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const ENDPOINT_PATTERN = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/;
   const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
   const REQUEST_TIMEOUT_MS = 30000;
+  const STATUS_TRANSITION_MS = 300;
   const ERROR_MESSAGES = {
-    invalid: 'Проверьте, правильно ли заполнены поля.',
-    captcha: 'Проверка безопасности не\u00A0прошла. Попробуйте ещё раз.',
+    invalid: 'Проверьте, что все поля заполнены корректно.',
+    captcha: 'Не\u00A0удалось пройти проверку безопасности. Попробуйте ещё раз.',
     rate_limited: 'Сейчас слишком много заявок. Попробуйте через минуту.',
     closed: 'Регистрация на\u00A0встречу завершена.',
     full: 'Регистрация закрыта: все места заняты.',
@@ -239,15 +300,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const siteKey = form.dataset.turnstileSitekey || '';
   const submitButton = document.getElementById('registration-submit');
   const statusElement = document.getElementById('registration-status');
+  const statusBox = statusElement.parentElement;
   const successPanel = document.getElementById('registration-success');
 
   let turnstileToken = '';
   let widgetId = null;
   let isSubmitting = false;
+  let isCaptchaStatus = false;
+  let statusClearTimer = null;
 
   function setStatus(message, isError = false) {
-    statusElement.textContent = message;
-    statusElement.classList.toggle('form-status--error', isError);
+    clearTimeout(statusClearTimer);
+    isCaptchaStatus = false;
+
+    if (message) {
+      statusElement.textContent = message;
+      statusElement.classList.toggle('form-status--error', isError);
+      statusBox.classList.add('is-visible');
+      return;
+    }
+
+    // Текст остаётся на экране, пока блок плавно сворачивается
+    statusBox.classList.remove('is-visible');
+    statusClearTimer = setTimeout(() => {
+      statusElement.textContent = '';
+      statusElement.classList.remove('form-status--error');
+    }, STATUS_TRANSITION_MS);
+  }
+
+  function setCaptchaStatus(message) {
+    setStatus(message, true);
+    isCaptchaStatus = true;
   }
 
   function resetTurnstile() {
@@ -265,13 +348,14 @@ document.addEventListener('DOMContentLoaded', () => {
       theme: 'dark',
       callback: (token) => {
         turnstileToken = token;
+        if (isCaptchaStatus) setStatus('');
       },
       'expired-callback': () => {
         turnstileToken = '';
       },
       'error-callback': () => {
         turnstileToken = '';
-        setStatus(ERROR_MESSAGES.captcha, true);
+        setCaptchaStatus(ERROR_MESSAGES.captcha);
       }
     });
     submitButton.disabled = false;
@@ -324,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!turnstileToken) {
-      setStatus('Подождите пару секунд, пока завершится проверка, и\u00A0нажмите кнопку ещё раз.', true);
+      setCaptchaStatus('Подождите, идёт проверка безопасности, и\u00A0нажмите кнопку ещё раз.');
       return;
     }
 

@@ -22,6 +22,7 @@ Update every location when a fact changes:
 - **Program:** `index.html`, `llms.txt`
 - **Speaker name or role:** cards and program in `index.html`, `speakersData` in `js/app.js`, `llms.txt`
 - **Speaker bio or topic:** `speakersData` in `js/app.js`
+- **Speaker added or removed:** also the avatar list in `.bento-avatars__track` in `index.html`
 
 `prohunters.ics` needs CRLF line endings and lines folded at 75 octets (RFC 5545).
 
@@ -29,9 +30,9 @@ Update every location when a fact changes:
 
 Line breaks are controlled by hand:
 
-- Bind short prepositions and conjunctions, dates, numbers, brand names, and the `·` separator to the neighbouring word with `&nbsp;` in HTML and ` ` in `js/app.js`.
+- Bind short prepositions and conjunctions, dates, numbers, brand names, and the `·` separator to the neighbouring word with `&nbsp;` in HTML and `\u00A0` in `js/app.js`.
 - Wrap hyphenated words in `<span class="nowrap">`.
-- `topic` values and form messages render through `textContent`, so they use ` ` only.
+- `topic` values and form messages render through `textContent`, so they use `\u00A0` only.
 
 ## Speaker portraits
 

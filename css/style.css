@@ -891,21 +891,76 @@ body {
 }
 
 .bento-avatars {
-  display: flex;
   margin-bottom: auto;
   padding-bottom: 28px;
+  overflow: clip;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
+}
+
+.bento-avatars__track {
+  display: flex;
+  width: max-content;
+}
+
+.bento-avatar {
+  position: relative;
+  flex: none;
+  margin: 0 -16px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  cursor: pointer;
+}
+
+.bento-avatar:focus-visible {
+  z-index: 1;
+  outline: 3px solid var(--color-gold);
+  outline-offset: -3px;
 }
 
 .bento-avatars img {
+  display: block;
   width: 68px;
   height: 68px;
   border: 3px solid #ffffff;
   border-radius: var(--radius-full);
   object-fit: cover;
+  transition: border-color 0.2s ease;
 }
 
-.bento-avatars img + img {
-  margin-left: -16px;
+@media (hover: hover) {
+  .bento-avatar:hover {
+    z-index: 1;
+  }
+
+  .bento-avatar:hover img {
+    border-color: var(--color-gold);
+  }
+}
+
+@keyframes bento-avatars-scroll {
+  to {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* В дорожке четыре одинаковых набора, поэтому сдвиг на четверть незаметен */
+  .bento-avatars.is-running .bento-avatars__track {
+    animation: bento-avatars-scroll 30s linear infinite;
+  }
+
+  .bento-avatars.is-running:focus-within .bento-avatars__track {
+    animation-play-state: paused;
+  }
+
+  @media (hover: hover) {
+    .bento-avatars.is-running:hover .bento-avatars__track {
+      animation-play-state: paused;
+    }
+  }
 }
 
 @supports (animation-timeline: view()) {
@@ -1229,6 +1284,12 @@ body {
   border-radius: var(--radius-sm);
   border-bottom: 1px solid var(--color-gold);
   overflow: hidden;
+  cursor: pointer;
+}
+
+.moderator-accent-block:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 .moderator-accent-block__content {
@@ -1297,6 +1358,12 @@ body {
   object-position: center;
   border: 2px solid var(--color-gold);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all var(--duration-normal) ease;
+}
+
+.moderator-accent-block:hover .moderator-accent-block__photo {
+  border-color: var(--color-red);
+  box-shadow: 0 4px 12px rgba(165, 23, 29, 0.3);
 }
 
 /* Award Ceremony Highlight */
@@ -3210,14 +3277,39 @@ body {
   cursor: pointer;
 }
 
+.cta-content .registration-form .form-submit {
+  margin: 0;
+}
+
 .form-submit:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
 
+.form-status-box {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease;
+}
+
+.form-status-box.is-visible {
+  grid-template-rows: 1fr;
+  margin-top: 14px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-status-box {
+    transition: none;
+  }
+}
+
 .cta-content .form-status {
-  min-height: 1.5em;
-  margin: 14px 0 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: center;
