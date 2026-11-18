@@ -20,6 +20,7 @@
 *.coffee   text
 *.css      text
 *.htm      text
+*.ics      text eol=crlf
 *.html     text
 *.inc      text
 *.ini      text

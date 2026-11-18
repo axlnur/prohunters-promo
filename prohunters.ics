@@ -1,28 +1,42 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//ProHunters//Event Calendar//EN
+PRODID:-//ProHunters//Event Calendar//RU
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Asia/Almaty
+BEGIN:STANDARD
+DTSTART:20240301T000000
+TZOFFSETFROM:+0600
+TZOFFSETTO:+0500
+TZNAME:+05
+END:STANDARD
+END:VTIMEZONE
 BEGIN:VEVENT
-UID:prohunters2025@prohunters.kz
-DTSTAMP:20251113T120000Z
+UID:prohunters2026@prohunters.kz
+DTSTAMP:20261118T123114Z
 ORGANIZER;CN="Aida Shagiyeva":MAILTO:aida@prohunters.kz
-DTSTART;TZID=Asia/Almaty:20251209T160000
-DTEND;TZID=Asia/Almaty:20251209T220000
-SUMMARY:Итоги ProHunters 2025
-LOCATION:г. Алматы\, пр. Достык 132Б\, Event-ресторан Le Dome
-URL:https://2025.prohunters.kz
-DESCRIPTION:Приглашаем вас на закрытое и незабываемое мероприятие\, где 
- будут представлены результаты актуального исследования рынка труда и 
- награждены лучшие компании\, заслужившие признание в 2025 году.\n\nМесто: 
- г. Алматы\, пр. Достык 132Б\,\nEvent-ресторан Le Dome\n\nОткрыть на карте:\n
- https://www.google.com/maps?q=Le+Dome+Almaty+Dostyk+132B
+DTSTART;TZID=Asia/Almaty:20261211T091500
+DTEND;TZID=Asia/Almaty:20261211T133000
+SUMMARY:ProHunters 2026: Сильная карьера. Живой чело
+ век
+LOCATION:Holiday Inn Almaty\, ул. Тимирязева\, 2Д\, Алмат
+ ы\, Казахстан
+URL:https://2026.prohunters.kz
+DESCRIPTION:Закрытая встреча ProHunters: итоги иссл
+ едования «Рейтинг работодателей Казахс
+ тана 2026»\, дискуссия о лидерстве и церемо
+ ния награждения.\n\nСбор гостей с 09:15\, отк
+ рытие встречи в 10:00.\n\nМесто: Holiday Inn Almaty\, у
+ л. Тимирязева\, 2Д\, Алматы\n\nОткрыть на ка
+ рте:\nhttps://www.google.com/maps/search/?api=1&query=Holiday+Inn+Almat
+ y+Timiryazev+2D
 STATUS:CONFIRMED
 PRIORITY:1
 SEQUENCE:0
 BEGIN:VALARM
 TRIGGER:-P1D
-DESCRIPTION:Напоминание о мероприятии
+DESCRIPTION:Напоминание о встрече ProHunters
 ACTION:DISPLAY
 END:VALARM
 END:VEVENT

@@ -4,13 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static landing page for the ProHunters 2025 event "Under the Jingle Bells" - a closed event showcasing labor market research results and awarding top employers in Kazakhstan. The event is scheduled for December 9th at Le Dome restaurant in Almaty.
+This is a static landing page for the ProHunters 2026 event "Strong career. Living person." - a closed event showcasing labor market research results and awarding top employers in Kazakhstan. The event is scheduled for December 11th, 2026, 09:15–13:30 at Holiday Inn Almaty.
 
 Built using HTML5 Boilerplate with Webpack bundling, the site presents event details including:
 - Event schedule and program
 - Speaker profiles with photos
 - Venue information
-- Award categories (High-tech and Non-High-tech employers)
+- Guest registration form
+
+Registrations go to a private Google Sheet through the web app in `apps-script/`. The repository is public, so secrets live only in the Apps Script project's Script Properties.
+
+Snowflakes and the starry sky are switched together by `--winter-effects-display` in `css/style.css` (`none` or `block`).
 
 ## Build and Development Commands
 

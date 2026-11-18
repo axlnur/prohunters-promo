@@ -1,65 +1,77 @@
 // Speaker Database
+// photo: null — показываются инициалы. Когда фото появится, укажите путь вида 'img/asel_mashanova.jpg'.
 const speakersData = {
   'renata-nureyeva': {
     name: 'Рената Нуреева',
-    position: 'CEO & Founder ProHunters, автор исследования «Рейтинг работодателей Казахстана»',
+    position: 'CEO &amp; Founder, ProHunters',
     photo: 'img/renata_nureyeva.jpg',
-    bio: `<p>13 лет в HR, сертифицированный консультант по оценке Hogan, сертифицированный карьерный консультант, модератор в бизнес-клубе VQ.</p>
-          <p>Возглавляет компанию ProHunters: работает со средним и крупным бизнесом, находит ключевых сотрудников в Казахстане, Центральной Азии, ОАЭ, Европе и Африке.</p>
-          <p>Закрывает вакансии топ-менеджеров для компаний: Сбер, Beeline, Аскона, БЦК банк, Freedom и др.</p>
-          <p>Ежегодно проводит исследование «Рейтинг работодателей Казахстана».</p>
-          <p>Авторизированный и сертифицированный реселлер оценки Hogan.</p>`,
+    initials: 'РН',
+    bio: '<p>Основатель агентства Recruitment &amp; Executive Search. ProHunters помогает среднему и крупному бизнесу находить ключевых специалистов и руководителей в Казахстане, Центральной Азии, ОАЭ, Европе, Африке и США.</p>',
     topic: null
   },
   'zaura-karakozhaeva': {
     name: 'Заура Каракожаева',
-    position: 'Консультант-аналитик ProHunters (обзор заработных плат и исследования),<br>HR Advisor в NCOC',
+    position: 'Консультант-аналитик ProHunters · HR Advisor, NCOC',
     photo: 'img/zaura_karakozhaeva.jpg',
-    bio: `<p>14 лет опыта в HR (Total Rewards) в FMCG, Telecom, Mining, Oil & Gas.</p>
-          <p><strong>Экспертиза:</strong></p>
-          <ul>
-            <li>компенсации и льготы;</li>
-            <li>бюджетирование и анализ затрат;</li>
-            <li>аналитика заработных плат и HR-аналитика;</li>
-            <li>грейдирование и управление должностной структурой и др.</li>
-          </ul>
-          <p>Соавтор ежегодного исследования ProHunters — «Рейтинг работодателей Казахстана».</p>`,
+    initials: 'ЗК',
+    bio: '<p>14 лет опыта в HR и Total Rewards. Эксперт по компенсациям, аналитике зарплат, грейдированию и бюджету персонала. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
     topic: null
   },
   'natalia-timofeeva': {
     name: 'Наталья Тимофеева',
-    position: 'Внешний консультант ProHunters',
+    position: 'Внешний консультант ProHunters · ex-HRD KPMG и Исламского банка',
     photo: 'img/natalia_timofeeva.jpg',
-    bio: `<p>HR-директор с более чем 15-летним опытом работы в международных компаниях индустрий IT, телекоммуникаций, финансовых услуг и консалтинга. Работала в России, Казахстане и странах СНГ. Сейчас возглавляет HR в Zaman Bank — первом цифровом исламском банке Казахстана.</p>
-          <p>Специализируется на управлении вознаграждением, HR-процессами, организационном проектировании и аналитике HR-данных.</p>
-          <p>Лауреат профессиональной премии «Хрустальная пирамида HR».</p>`,
+    initials: 'НТ',
+    bio: '<p>Более 15 лет в международных компаниях в IT, телекоме, финансах и консалтинге. Эксперт по вознаграждению, организационному проектированию и HR-аналитике. Лауреат премии «Хрустальная пирамида HR».</p>',
     topic: null
   },
-  'rada-islamova': {
-    name: 'Рада Исламова',
-    position: 'Основательница Heartful Leadership Academy',
-    photo: 'img/rada_islamova.jpg',
-    bio: `<p>Международный тренер по медитации и йоге Heartfulness.</p>
-          <p>Основательница Wonder Women и менторской программы Wonder Women Mentorship.</p>
-          <p>Соавтор первого в Казахстане исследования «Гендерный баланс в IT-индустрии Казахстана».</p>`,
-    topic: '«Сотрудник в 2025: я выбираю себя. Как компаниям превратить этот тренд в пользу для бизнеса»'
+  'asel-mashanova': {
+    name: 'Асель Машанова',
+    position: 'Сооснователь LULU Group',
+    photo: null,
+    initials: 'АМ',
+    bio: '<p>Предпринимательница, создательница проектов LULU, Metabody, Meta Farm и Sau Apothecary на пересечении красоты, здоровья и осознанного образа жизни.</p>',
+    topic: 'Карьера, амбиции и личный выбор. Тема выступления уточняется.'
   },
-  'vitali-valianiuk': {
-    name: 'Виталий Волянюк',
-    position: 'Основатель и директор портала digitalbusiness.kz — крупнейшего технологического медиа в Казахстане и Центральной Азии',
-    photo: 'img/vitali_valianiuk.jpg',
-    bio: `<p>Модератор международных форумов Digital Bridge (Астана), Central Asia Fintech Summit (Алматы) и казахстанского CFO Summit (Алматы) и др.</p>
-          <p>Соавтор ряда книг про бизнес и технологии:<br><i>«Как оседлать единорога? Подрывные инновации, глобальные тренды, риски и окно возможностей для Казахстана»</i>.</p>
-          <p>Преподаватель авторского курса по публичным выступлениям в Бизнес-школе «Здесь и сейчас» (Минск).</p>
-          <p>Журналист по образованию, за время работы в медиа записал более тысячи интервью.</p>`,
-    topic: '«Как компании эффективно продвигать HR-бренд в медиа и соцсетях»'
+  'galiya-khamitova': {
+    name: 'Галия Хамитова',
+    position: 'Президент Erickson Coaching International Central Asia',
+    photo: null,
+    initials: 'ГХ',
+    bio: '<p>Профессиональный коуч PCC ICF, ментор-коуч и коуч-супервизор с квалификациями ICF и EMCC. Более 6 000 часов индивидуального коучинга топ-руководителей.</p>',
+    topic: null
   },
-  'lana-chuksina': {
-    name: 'Лана Чуксина',
-    position: 'Тимлид отдела PR & Communications, Kolesa Group',
-    photo: 'img/lana_chuksina.jpg',
-    bio: '',
-    topic: '«Inside Out: как внутренняя культура формирует внешний имидж компании»'
+  'karashash-dzhuzeeva': {
+    name: 'Карашаш Джузеева',
+    position: 'Предпринимательница, издатель Vintage Kazakhstan',
+    photo: null,
+    initials: 'КД',
+    bio: '<p>Медиаменеджер и общественный деятель. Основательница и издатель журнала Vintage Kazakhstan, развивающая предпринимательские и культурные проекты.</p>',
+    topic: null
+  },
+  'ilyas-bakirov': {
+    name: 'Ильяс Бакиров',
+    position: 'Основатель и управляющий партнёр MKS KUSTO LOGISTICS',
+    photo: null,
+    initials: 'ИБ',
+    bio: '<p>Предприниматель, учредитель BAKIROV CONSTRUCTION GROUP и член благотворительного фонда BIRLIK.</p>',
+    topic: null
+  },
+  'maksat-zharasbaev': {
+    name: 'Максат Жарасбаев',
+    position: 'Генеральный директор Inditex Kazakhstan · Country Manager',
+    photo: null,
+    initials: 'МЖ',
+    bio: '<p>Руководитель бизнеса Inditex в Казахстане с международным опытом в ритейле и управлении персоналом. Ранее занимал руководящие HR-позиции в международной структуре группы.</p>',
+    topic: null
+  },
+  'moldir-seidan': {
+    name: 'Молдир Сейдан',
+    position: 'Основатель HR KEY · HR-предприниматель · Executive Coach',
+    photo: null,
+    initials: 'МС',
+    bio: '<p>Более 15 лет в HR. Советник CEO Anor Bank, сертифицированный executive-коуч, автор подкастов о бизнесе. Пятикратная победительница премии HR Brand от HeadHunter Central Asia.</p>',
+    topic: '«Эволюция карьеры: от амбиций к свободе»'
   }
 };
 
@@ -68,6 +80,7 @@ const modal = document.getElementById('speaker-modal');
 const modalOverlay = modal.querySelector('.modal-overlay');
 const modalClose = modal.querySelector('.modal-close');
 const modalPhoto = modal.querySelector('#modal-speaker-photo');
+const modalInitials = modal.querySelector('#modal-speaker-initials');
 const modalName = modal.querySelector('.modal-name');
 const modalPosition = modal.querySelector('.modal-position');
 const modalBio = modal.querySelector('.modal-bio');
@@ -81,8 +94,18 @@ function openModal(speakerId) {
   if (!speaker) return;
 
   // Populate content
-  modalPhoto.src = speaker.photo;
-  modalPhoto.alt = speaker.name;
+  if (speaker.photo) {
+    modalPhoto.src = speaker.photo;
+    modalPhoto.alt = speaker.name;
+    modalPhoto.hidden = false;
+    modalInitials.hidden = true;
+  } else {
+    modalPhoto.removeAttribute('src');
+    modalPhoto.alt = '';
+    modalPhoto.hidden = true;
+    modalInitials.textContent = speaker.initials;
+    modalInitials.hidden = false;
+  }
   modalName.textContent = speaker.name;
   modalPosition.innerHTML = speaker.position;
   modalBio.innerHTML = speaker.bio;
@@ -111,6 +134,10 @@ function closeModal() {
 
 // Event Listeners - Speaker Cards
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.speaker-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.speaker));
+  });
+
   const speakerCards = document.querySelectorAll('.speaker-mini-card');
 
   speakerCards.forEach(card => {
@@ -185,4 +212,154 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   observer.observe(awardBlock);
+});
+
+// ============================================
+// REGISTRATION FORM
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('registration-form');
+
+  if (!form) return;
+
+  const ENDPOINT_PATTERN = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/;
+  const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  const REQUEST_TIMEOUT_MS = 30000;
+  const ERROR_MESSAGES = {
+    invalid: 'Проверьте, что все поля заполнены корректно.',
+    captcha: 'Не удалось пройти проверку безопасности. Попробуйте ещё раз.',
+    rate_limited: 'Сейчас слишком много заявок. Попробуйте через минуту.',
+    closed: 'Регистрация на встречу завершена.',
+    full: 'Регистрация закрыта: все места заняты.',
+    default: 'Не удалось отправить заявку. Попробуйте ещё раз или напишите Аиде.'
+  };
+
+  const endpoint = form.dataset.endpoint || '';
+  const siteKey = form.dataset.turnstileSitekey || '';
+  const submitButton = document.getElementById('registration-submit');
+  const statusElement = document.getElementById('registration-status');
+  const successPanel = document.getElementById('registration-success');
+
+  let turnstileToken = '';
+  let widgetId = null;
+  let isSubmitting = false;
+
+  function setStatus(message, isError = false) {
+    statusElement.textContent = message;
+    statusElement.classList.toggle('form-status--error', isError);
+  }
+
+  function resetTurnstile() {
+    turnstileToken = '';
+    if (widgetId !== null && window.turnstile) {
+      window.turnstile.reset(widgetId);
+    }
+  }
+
+  function renderTurnstile() {
+    widgetId = window.turnstile.render('#turnstile-widget', {
+      sitekey: siteKey,
+      action: 'register',
+      language: 'ru',
+      theme: 'dark',
+      callback: (token) => {
+        turnstileToken = token;
+      },
+      'expired-callback': () => {
+        turnstileToken = '';
+      },
+      'error-callback': () => {
+        turnstileToken = '';
+        setStatus(ERROR_MESSAGES.captcha, true);
+      }
+    });
+    submitButton.disabled = false;
+    setStatus('');
+  }
+
+  function loadTurnstile() {
+    const script = document.createElement('script');
+    script.src = TURNSTILE_SCRIPT;
+    script.async = true;
+    script.addEventListener('load', renderTurnstile);
+    script.addEventListener('error', () => setStatus(ERROR_MESSAGES.default, true));
+    document.head.appendChild(script);
+  }
+
+  async function submitRegistration(payload) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    try {
+      // text/plain не вызывает CORS preflight, который Apps Script не обрабатывает
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        redirect: 'follow',
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer',
+        signal: controller.signal
+      });
+      return await response.json();
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (isSubmitting) return;
+
+    const data = new FormData(form);
+    const firstName = String(data.get('firstName')).trim();
+    const lastName = String(data.get('lastName')).trim();
+    const company = String(data.get('company')).trim();
+
+    if (!firstName || !lastName || !company) {
+      setStatus(ERROR_MESSAGES.invalid, true);
+      return;
+    }
+
+    if (!turnstileToken) {
+      setStatus('Подождите, идёт проверка безопасности, и нажмите кнопку ещё раз.', true);
+      return;
+    }
+
+    isSubmitting = true;
+    submitButton.disabled = true;
+    setStatus('Отправляем заявку…');
+
+    try {
+      const result = await submitRegistration({
+        firstName,
+        lastName,
+        company,
+        consent: data.get('consent') === 'on',
+        website: String(data.get('website') || ''),
+        token: turnstileToken
+      });
+
+      if (result.ok === true) {
+        form.hidden = true;
+        successPanel.hidden = false;
+        successPanel.focus();
+        return;
+      }
+
+      setStatus(ERROR_MESSAGES[result.code] || ERROR_MESSAGES.default, true);
+    } catch (error) {
+      setStatus(ERROR_MESSAGES.default, true);
+    }
+
+    isSubmitting = false;
+    submitButton.disabled = false;
+    resetTurnstile();
+  });
+
+  if (ENDPOINT_PATTERN.test(endpoint) && siteKey) {
+    loadTurnstile();
+  }
 });
