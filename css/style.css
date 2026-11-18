@@ -1708,7 +1708,7 @@ body {
   gap: 14px;
   width: 100%;
   max-width: 560px;
-  margin: 0 auto;
+  margin: 32px auto 0;
   padding: 8px 24px 8px 8px;
   text-align: left;
 }
@@ -1827,7 +1827,7 @@ body {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
   max-width: 560px;
@@ -1854,9 +1854,11 @@ body {
   z-index: -1;
 }
 
+/* Верх логотипа совпадает с верхом заглавных букв в первой строке текста */
 .footer-logo {
   display: flex;
   flex: none;
+  margin-top: 9px;
 }
 
 .footer-logo a {
@@ -3234,7 +3236,7 @@ body {
 /* Registration */
 .registration-card {
   max-width: 560px;
-  margin: 0 auto 16px;
+  margin: 0 auto;
   padding: 32px;
   border: 1px solid var(--glass-border-subtle);
   border-radius: var(--radius-lg);
@@ -3298,7 +3300,7 @@ body {
 .form-consent {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 20px;
   font-size: 0.8125rem;
   line-height: 1.5;
@@ -3310,7 +3312,7 @@ body {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
-  margin: 2px 0 0;
+  margin: 0;
   accent-color: var(--color-gold);
 }
 
@@ -3513,8 +3515,13 @@ body {
 
   .footer-content {
     flex-direction: column;
+    align-items: center;
     gap: 14px;
     padding: 24px;
+  }
+
+  .footer-logo {
+    margin-top: 0;
   }
 
   .footer-info {
