@@ -118,43 +118,54 @@
   <!-- Benefits Section -->
   <section class="benefits" id="benefits">
     <div class="container">
-      <h2 class="section-title">Данные. Диалог. Новые ориентиры.</h2>
-      <p class="section-lead">Встреча для HR-директоров, предпринимателей и руководителей, которым важно будущее работы и качество управленческих решений.</p>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-          </div>
-          <h3>Рынок труда 2026</h3>
-          <p>Главные результаты исследования о выборе работодателя и ожиданиях специалистов.</p>
-        </div>
+      <div class="benefits-head">
+        <h2 class="benefits-title">
+          <span>Данные.</span>
+          <span>Диалог.</span>
+          <span class="benefits-title__accent">Новые ориентиры.</span>
+        </h2>
+        <p class="benefits-lead">Встреча для HR-директоров, предпринимателей и руководителей, которым важно будущее работы и качество управленческих решений.</p>
+      </div>
 
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
+      <div class="bento">
+        <article class="bento-card bento-card--data">
+          <div class="bento-bars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
-          <h3>Карьера и человек</h3>
-          <p>Разговор о лидерстве, устойчивых амбициях, личной свободе и цене результата.</p>
-        </div>
+          <div class="bento-card__body">
+            <p class="bento-card__label">Исследование</p>
+            <h3 class="bento-card__title">Рынок труда 2026</h3>
+            <p class="bento-card__text">Главные результаты исследования о выборе работодателя и ожиданиях специалистов.</p>
+          </div>
+        </article>
 
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
+        <article class="bento-card bento-card--dialog">
+          <svg class="bento-arcs" viewBox="0 0 280 280" aria-hidden="true" focusable="false">
+            <circle cx="140" cy="140" r="44"></circle>
+            <circle cx="140" cy="140" r="78"></circle>
+            <circle cx="140" cy="140" r="112"></circle>
+            <circle cx="140" cy="140" r="138"></circle>
+          </svg>
+          <div class="bento-card__body">
+            <p class="bento-card__label">Диалог</p>
+            <h3 class="bento-card__title">Карьера и человек</h3>
+            <p class="bento-card__text">Разговор о лидерстве, устойчивых амбициях, личной свободе и цене результата.</p>
           </div>
-          <h3>HR и бизнес</h3>
-          <p>Панельная дискуссия, совместная работа и нетворкинг с коллегами.</p>
-        </div>
+        </article>
+
+        <article class="bento-card bento-card--people">
+          <div class="bento-avatars" aria-hidden="true">
+            <img src="img/speakers/galiya-khamitova-avatar.jpg" alt="" width="280" height="280" loading="lazy">
+            <img src="img/speakers/karashash-dzhuzeeva-avatar.jpg" alt="" width="280" height="280" loading="lazy">
+            <img src="img/speakers/ilyas-bakirov-avatar.jpg" alt="" width="280" height="280" loading="lazy">
+            <img src="img/speakers/maksat-zharasbaev-avatar.jpg" alt="" width="280" height="280" loading="lazy">
+          </div>
+          <div class="bento-card__body">
+            <p class="bento-card__label">Сообщество</p>
+            <h3 class="bento-card__title">HR и бизнес</h3>
+            <p class="bento-card__text">Панельная дискуссия, совместная работа и нетворкинг с коллегами.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -471,16 +482,16 @@
             <div class="form-row">
               <div class="form-field">
                 <label for="reg-first-name">Имя <span aria-hidden="true">*</span></label>
-                <input id="reg-first-name" name="firstName" type="text" autocomplete="given-name" maxlength="80" required>
+                <input id="reg-first-name" placeholder="Ваше имя" name="firstName" type="text" autocomplete="given-name" maxlength="80" required>
               </div>
               <div class="form-field">
                 <label for="reg-last-name">Фамилия <span aria-hidden="true">*</span></label>
-                <input id="reg-last-name" name="lastName" type="text" autocomplete="family-name" maxlength="80" required>
+                <input id="reg-last-name" placeholder="Ваша фамилия" name="lastName" type="text" autocomplete="family-name" maxlength="80" required>
               </div>
             </div>
             <div class="form-field">
               <label for="reg-company">Название компании <span aria-hidden="true">*</span></label>
-              <input id="reg-company" name="company" type="text" autocomplete="organization" maxlength="160" required>
+              <input id="reg-company" placeholder="Ваша компания" name="company" type="text" autocomplete="organization" maxlength="160" required>
             </div>
 
             <!-- Ловушка для ботов: поле скрыто от людей и должно оставаться пустым -->
