@@ -1,5 +1,14 @@
-# www.robotstxt.org/
+# The event page, calendar file, and llms.txt are open to all crawlers.
+# Project service files are excluded from crawling.
 
-# Allow crawling of all content
 User-agent: *
-Disallow:
+Disallow: /apps-script/
+Disallow: /CLAUDE.md
+Disallow: /LICENSE
+Disallow: /README.md
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /webpack.common.js
+Disallow: /webpack.config.dev.js
+Disallow: /webpack.config.prod.js
+Allow: /

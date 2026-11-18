@@ -1,67 +1,51 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Landing page for the invitation-only ProHunters 2026 event: December 11, 2026, 09:15–13:30, Holiday Inn Almaty. Site copy is in Russian. See `README.md` for setup and the project layout.
 
-## Project Overview
+## Deployment
 
-This is a static landing page for the ProHunters 2026 event "Strong career. Living person." - a closed event showcasing labor market research results and awarding top employers in Kazakhstan. The event is scheduled for December 11th, 2026, 09:15–13:30 at Holiday Inn Almaty.
+GitHub Pages publishes the repository root of `main` directly, so `index.html`, `css/`, and `js/app.js` ship as written and `dist/` stays out of the release path. Merging to `main` updates the live site.
 
-Built using HTML5 Boilerplate with Webpack bundling, the site presents event details including:
-- Event schedule and program
-- Speaker profiles with photos
-- Venue information
-- Guest registration form
+The repository and every published file are public. Keep secrets in the Apps Script project's Script Properties.
 
-Registrations go to a private Google Sheet through the web app in `apps-script/`. The repository is public, so secrets live only in the Apps Script project's Script Properties.
+## Local preview
 
-Snowflakes and the starry sky are switched together by `--winter-effects-display` in `css/style.css` (`none` or `block`).
+The Content Security Policy in `index.html` blocks the dev server's WebSocket, so `npm start` serves the page without live reload. Refresh manually.
 
-## Build and Development Commands
+There is no test suite. Verify changes in a browser at widths from 320 to 1440 px, including the speaker dialogs.
 
-### Development Server
-```bash
-npm start
-```
-Starts webpack-dev-server with live reload on webpack.config.dev.js configuration. Opens browser automatically.
+## Content that lives in several places
 
-### Production Build
-```bash
-npm run build
-```
-Creates optimized production bundle in `dist/` directory using webpack.config.prod.js. Includes:
-- HTML processing via HtmlWebpackPlugin
-- Asset copying (images, CSS, icons, robots.txt, 404.html, manifest)
-- JavaScript bundling with webpack
+Update every location when a fact changes:
 
-### Testing
-No test suite currently implemented. Running `npm test` will fail with error message.
+- **Event date, time, venue:** `index.html` (body and meta tags), `prohunters.ics`, `llms.txt`
+- **Program:** `index.html`, `llms.txt`
+- **Speaker name or role:** cards and program in `index.html`, `speakersData` in `js/app.js`, `llms.txt`
+- **Speaker bio or topic:** `speakersData` in `js/app.js`
 
-## Project Structure
+`prohunters.ics` needs CRLF line endings and lines folded at 75 octets (RFC 5545).
 
-### Source Files
-- `index.html` - Main HTML entry point
-- `js/app.js` - JavaScript entry point (currently empty)
-- `css/style.css` - Main stylesheet
-- `img/` - Contains speaker photos and event branding (logo.png, speaker portraits)
-- `raw/PROHUNTERS_EVENT.md` - Source content in Markdown format with event details
+## Russian typography
 
-### Configuration
-- `webpack.common.js` - Base webpack config with entry/output settings
-- `webpack.config.dev.js` - Development configuration with webpack-dev-server
-- `webpack.config.prod.js` - Production build with HtmlWebpackPlugin and CopyPlugin for asset management
+Line breaks are controlled by hand:
 
-### Build Output
-Production builds output to `dist/` directory with the following structure:
-- `/js/app.js` - Bundled JavaScript
-- `/css/` - Copied stylesheets
-- `/img/` - Copied images
-- `/js/vendor/` - Vendor scripts
-- Static assets (favicon.ico, robots.txt, site.webmanifest, etc.)
+- Bind short prepositions and conjunctions, dates, numbers, brand names, and the `·` separator to the neighbouring word with `&nbsp;` in HTML and ` ` in `js/app.js`.
+- Wrap hyphenated words in `<span class="nowrap">`.
+- `topic` values and form messages render through `textContent`, so they use ` ` only.
 
-## Architecture Notes
+## Speaker portraits
 
-This is a simple static website project using webpack as a build tool rather than a complex application framework. The webpack configuration is split into common, development, and production configs using webpack-merge.
+Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>.jpg` (960×1200) and `<slug>-avatar.jpg` (280×280), both JPEG sRGB. In the full portrait, centre the eyes horizontally, place the eye line at 38% of the height, and make the face (forehead to chin) 36% of the height, so cards, dialogs, and avatars line up.
 
-The content source (`raw/PROHUNTERS_EVENT.md`) contains the event information in Markdown format with relative image references, suggesting this content may need to be converted to HTML or the HTML page needs to be updated to match this content structure.
+## Registration
 
-Currently `js/app.js` is empty, indicating the site may be primarily HTML/CSS without significant JavaScript interactivity, or the JavaScript implementation is pending.
+- `apps-script/Code.gs` is a copy of the deployed back end. Changes reach production only after a new Apps Script deployment version.
+- The form reads its endpoint and Turnstile site key from `data-*` attributes on `#registration-form`.
+- Requests use `Content-Type: text/plain` because Apps Script cannot answer a CORS preflight.
+- Any new external origin must be added to the Content Security Policy meta tag in `index.html`.
+
+## CSS
+
+- `--winter-effects-display` in `css/style.css` switches snow and the starry sky together (`none` or `block`).
+- Bento cards use `animation-timeline: view()`. Use `overflow: clip` on their ancestors, because `overflow: hidden` creates a scroll container and stalls the animation.
+- Glass elements use `backdrop-filter`. Keep `filter` and lasting `opacity` off their ancestors so the backdrop stays visible.
