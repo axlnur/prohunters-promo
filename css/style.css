@@ -17,6 +17,7 @@
   --color-navy-light: #2d3e50;
   --color-gold: #C9A961;
   --color-gold-dark: #A88B4A;
+  --color-gold-light: #E8D5A8;
   --color-white: #ffffff;
   --color-cream: #f8f9fa;
   --color-red: #A5171D;
@@ -535,14 +536,26 @@ a:hover {
 }
 
 .hero-title-prelude {
-  font-family: var(--font-accent);
-  font-weight: 400;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  letter-spacing: 0.5px;
-  color: var(--color-white);
-  opacity: 0.75;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 3px;
   line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.hero-title-prelude::before,
+.hero-title-prelude::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 .hero-title-main {
@@ -566,6 +579,11 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.hero-subtitle__rating {
+  font-weight: 600;
+  color: var(--color-gold-light);
 }
 
 .hero-details {
@@ -2224,11 +2242,6 @@ a:hover {
     gap: 0.35rem;
   }
 
-  .hero-title-prelude {
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    letter-spacing: 0.3px;
-  }
-
   .hero-title-main {
     font-size: clamp(1.75rem, 6vw, 2.5rem);
     letter-spacing: -0.3px;
@@ -2938,17 +2951,44 @@ a:hover {
   color: var(--color-gold);
 }
 
-.idea__quote {
+.idea__figure {
   max-width: 960px;
-  margin: 0 auto 28px;
+  margin: 0 auto;
+}
+
+.idea__mark {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  fill: var(--color-gold);
+}
+
+.idea__quote {
+  margin: 0 0 32px;
   font-family: var(--font-accent);
   font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: 600;
   line-height: 1.25;
+  text-wrap: balance;
+}
+
+.idea__quote p {
+  margin: 0;
+  line-height: inherit;
 }
 
 .idea__quote em {
   color: var(--color-gold);
+}
+
+.idea__signature::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin: 0 auto 16px;
+  background: var(--color-gold);
 }
 
 .idea__signature {
