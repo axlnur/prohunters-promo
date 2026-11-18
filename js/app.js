@@ -1,10 +1,10 @@
 // Speaker Database
-// photo: null — показываются инициалы. Когда фото появится, укажите путь вида 'img/asel_mashanova.jpg'.
+// Портреты лежат в img/speakers: <slug>.jpg (960×1200) и <slug>-avatar.jpg (280×280).
 const speakersData = {
   'renata-nureyeva': {
     name: 'Рената Нуреева',
     position: 'CEO &amp; Founder, ProHunters',
-    photo: 'img/renata_nureyeva.jpg',
+    photo: 'img/speakers/renata-nureyeva.jpg',
     initials: 'РН',
     bio: '<p>Основатель агентства Recruitment &amp; Executive Search. ProHunters помогает среднему и крупному бизнесу находить ключевых специалистов и руководителей в Казахстане, Центральной Азии, ОАЭ, Европе, Африке и США.</p>',
     topic: null
@@ -12,7 +12,7 @@ const speakersData = {
   'zaura-karakozhaeva': {
     name: 'Заура Каракожаева',
     position: 'Консультант-аналитик ProHunters · HR Advisor, NCOC',
-    photo: 'img/zaura_karakozhaeva.jpg',
+    photo: 'img/speakers/zaura-karakozhaeva.jpg',
     initials: 'ЗК',
     bio: '<p>14 лет опыта в HR и Total Rewards. Эксперт по компенсациям, аналитике зарплат, грейдированию и бюджету персонала. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
     topic: null
@@ -20,7 +20,7 @@ const speakersData = {
   'natalia-timofeeva': {
     name: 'Наталья Тимофеева',
     position: 'Внешний консультант ProHunters · ex-HRD KPMG и Исламского банка',
-    photo: 'img/natalia_timofeeva.jpg',
+    photo: 'img/speakers/natalia-timofeeva.jpg',
     initials: 'НТ',
     bio: '<p>Более 15 лет в международных компаниях в IT, телекоме, финансах и консалтинге. Эксперт по вознаграждению, организационному проектированию и HR-аналитике. Лауреат премии «Хрустальная пирамида HR».</p>',
     topic: null
@@ -28,7 +28,7 @@ const speakersData = {
   'asel-mashanova': {
     name: 'Асель Машанова',
     position: 'Сооснователь LULU Group',
-    photo: null,
+    photo: 'img/speakers/asel-mashanova.jpg',
     initials: 'АМ',
     bio: '<p>Предпринимательница, создательница проектов LULU, Metabody, Meta Farm и Sau Apothecary на пересечении красоты, здоровья и осознанного образа жизни.</p>',
     topic: 'Карьера, амбиции и личный выбор. Тема выступления уточняется.'
@@ -36,7 +36,7 @@ const speakersData = {
   'galiya-khamitova': {
     name: 'Галия Хамитова',
     position: 'Президент Erickson Coaching International Central Asia',
-    photo: null,
+    photo: 'img/speakers/galiya-khamitova.jpg',
     initials: 'ГХ',
     bio: '<p>Профессиональный коуч PCC ICF, ментор-коуч и коуч-супервизор с квалификациями ICF и EMCC. Более 6 000 часов индивидуального коучинга топ-руководителей.</p>',
     topic: null
@@ -44,7 +44,7 @@ const speakersData = {
   'karashash-dzhuzeeva': {
     name: 'Карашаш Джузеева',
     position: 'Предпринимательница, издатель Vintage Kazakhstan',
-    photo: null,
+    photo: 'img/speakers/karashash-dzhuzeeva.jpg',
     initials: 'КД',
     bio: '<p>Медиаменеджер и общественный деятель. Основательница и издатель журнала Vintage Kazakhstan, развивающая предпринимательские и культурные проекты.</p>',
     topic: null
@@ -52,7 +52,7 @@ const speakersData = {
   'ilyas-bakirov': {
     name: 'Ильяс Бакиров',
     position: 'Основатель и управляющий партнёр MKS KUSTO LOGISTICS',
-    photo: null,
+    photo: 'img/speakers/ilyas-bakirov.jpg',
     initials: 'ИБ',
     bio: '<p>Предприниматель, учредитель BAKIROV CONSTRUCTION GROUP и член благотворительного фонда BIRLIK.</p>',
     topic: null
@@ -60,7 +60,7 @@ const speakersData = {
   'maksat-zharasbaev': {
     name: 'Максат Жарасбаев',
     position: 'Генеральный директор Inditex Kazakhstan · Country Manager',
-    photo: null,
+    photo: 'img/speakers/maksat-zharasbaev.jpg',
     initials: 'МЖ',
     bio: '<p>Руководитель бизнеса Inditex в Казахстане с международным опытом в ритейле и управлении персоналом. Ранее занимал руководящие HR-позиции в международной структуре группы.</p>',
     topic: null
@@ -68,7 +68,7 @@ const speakersData = {
   'moldir-seidan': {
     name: 'Молдир Сейдан',
     position: 'Основатель HR KEY · HR-предприниматель · Executive Coach',
-    photo: null,
+    photo: 'img/speakers/moldir-seidan.jpg',
     initials: 'МС',
     bio: '<p>Более 15 лет в HR. Советник CEO Anor Bank, сертифицированный executive-коуч, автор подкастов о бизнесе. Пятикратная победительница премии HR Brand от HeadHunter Central Asia.</p>',
     topic: '«Эволюция карьеры: от амбиций к свободе»'
