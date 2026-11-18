@@ -62,7 +62,7 @@ This repository contains the event website. The site content is in Russian.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org) 18.12 or later
+- [Node.js](https://nodejs.org) 22.15 or later
 - npm
 
 ### Installation
