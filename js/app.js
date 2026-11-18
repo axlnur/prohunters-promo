@@ -88,6 +88,14 @@ const speakersData = {
     initials: 'ГШ',
     bio: '<p>Создаёт атмосферу живого диалога и\u00A0помогает гостям включаться в\u00A0обсуждение.</p>',
     topic: null
+  },
+  'aida-shagiyeva': {
+    name: 'Аида Шагиева',
+    position: 'Операционный директор ProHunters',
+    photo: 'img/speakers/aida-shagiyeva.jpg',
+    initials: 'АШ',
+    bio: '<p>Отвечает за\u00A0организацию и\u00A0оптимизацию операционных процессов в\u00A0ProHunters. Выстраивает взаимодействие внутри команды, чтобы проекты клиентов шли слаженно и\u00A0в\u00A0срок. Координирует подготовку встречи и\u00A0отвечает на\u00A0вопросы гостей.</p>',
+    topic: null
   }
 };
 
@@ -153,7 +161,7 @@ function closeModal() {
 
 // Event Listeners - Speaker Cards
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.speaker-card').forEach(card => {
+  document.querySelectorAll('.speaker-card, .cta-note__person').forEach(card => {
     card.addEventListener('click', () => openModal(card.dataset.speaker));
   });
 

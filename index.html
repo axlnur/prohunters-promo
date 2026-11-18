@@ -514,7 +514,16 @@
 
             <div id="turnstile-widget" class="form-turnstile"></div>
 
-            <button id="registration-submit" class="cta-button primary glass-button form-submit" type="submit" disabled>Зарегистрироваться</button>
+            <div class="form-actions">
+              <button id="registration-submit" class="cta-button primary glass-button form-submit" type="submit" disabled>Зарегистрироваться</button>
+              <a class="cta-button glass-button form-calendar" href="prohunters.ics" download="ProHunters_11_Dec_2026.ics" aria-label="Добавить встречу в календарь">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="3"></rect>
+                  <path d="M16 2v4M8 2v4M3 10h18M12 13v6M9 16h6"></path>
+                </svg>
+                <span class="form-calendar__tooltip" aria-hidden="true">Добавить встречу в&nbsp;календарь</span>
+              </a>
+            </div>
             <div class="form-status-box">
               <p id="registration-status" class="form-status" role="status" aria-live="polite"></p>
             </div>
@@ -523,12 +532,17 @@
           <div id="registration-success" class="registration-success" tabindex="-1" hidden>
             <h3>Спасибо, вы зарегистрированы</h3>
             <p>Ждём вас 11&nbsp;декабря&nbsp;2026&nbsp;года в&nbsp;Holiday&nbsp;Inn&nbsp;Almaty. Сбор гостей с&nbsp;09:15.</p>
+            <a href="prohunters.ics" download="ProHunters_11_Dec_2026.ics" class="calendar-link">Добавить встречу в&nbsp;календарь</a>
           </div>
         </div>
 
-        <a href="prohunters.ics" download="ProHunters_11_Dec_2026.ics" class="calendar-link">Добавить встречу в&nbsp;календарь</a>
-
-        <p class="cta-note">По&nbsp;вопросам пишите Аиде: <a href="https://wa.me/+77770080248" target="_blank" rel="noopener noreferrer">+7 777 008-02-48</a></p>
+        <p class="cta-note">
+          <button class="cta-note__person" type="button" data-speaker="aida-shagiyeva" aria-label="Аида Шагиева"><img class="cta-note__photo" src="img/speakers/aida-shagiyeva-avatar.jpg" alt="" width="280" height="280" loading="lazy"></button>
+          <span class="cta-note__body">
+            <span>По&nbsp;вопросам пишите Аиде:</span>
+            <a href="https://wa.me/+77770080248" target="_blank" rel="noopener noreferrer">+7 777 008-02-48</a>
+          </span>
+        </p>
       </div>
     </div>
 
@@ -537,7 +551,7 @@
       <div class="container">
         <div class="footer-content">
           <div class="footer-logo">
-            <img src="img/logo.png" alt="ProHunters">
+            <a href="https://www.prohunters.kz" target="_blank" rel="noopener noreferrer"><img src="img/logo.png" alt="ProHunters"></a>
           </div>
           <div class="footer-info">
             <p>Закрытое мероприятие по&nbsp;приглашениям</p>
