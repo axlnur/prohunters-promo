@@ -4,8 +4,6 @@
 
 **Landing page for the invitation-only ProHunters business event in Almaty, Kazakhstan.**
 
-[Website](https://2026.prohunters.kz) · [Program](https://2026.prohunters.kz/#program) · [Speakers](https://2026.prohunters.kz/#speakers) · [Registration](https://2026.prohunters.kz/#register)
-
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=flat-square)](https://developer.mozilla.org/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS-663399?logo=css&logoColor=white&style=flat-square)](https://developer.mozilla.org/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat-square)](https://developer.mozilla.org/docs/Web/JavaScript)
@@ -17,7 +15,7 @@
 [![Cloudflare Turnstile](https://img.shields.io/badge/Cloudflare_Turnstile-F38020?logo=cloudflare&logoColor=white&style=flat-square)](https://www.cloudflare.com/products/turnstile)
 [![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?logo=githubpages&logoColor=white&style=flat-square)](https://pages.github.com)
 
-[![License: MIT](https://img.shields.io/github/license/axlnur/prohunters-promo-2025?style=flat-square)](LICENSE)
+[![License: MIT](https://img.shields.io/github/license/axlnur/prohunters-promo?style=flat-square)](LICENSE)
 [![Author: axlnur](https://img.shields.io/badge/author-axlnur-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/axlnur)
 
 </div>
@@ -70,8 +68,8 @@ This repository contains the event website. The site content is in Russian.
 ### Installation
 
 ```bash
-git clone https://github.com/axlnur/prohunters-promo-2025.git
-cd prohunters-promo-2025
+git clone https://github.com/axlnur/prohunters-promo.git
+cd prohunters-promo
 npm ci
 ```
 
