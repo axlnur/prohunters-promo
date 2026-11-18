@@ -183,6 +183,30 @@ a:hover {
   color: var(--color-gold-dark);
 }
 
+h1, h2, h3, h4,
+.speaker-card__name,
+.speaker-card__role,
+.moderator-accent-block__title {
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption,
+blockquote {
+  text-wrap: pretty;
+}
+
+body {
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
 /* ==========================================================================
    Layout Primitives
    ========================================================================== */

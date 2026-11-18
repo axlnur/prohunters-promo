@@ -3,75 +3,75 @@
 const speakersData = {
   'renata-nureyeva': {
     name: 'Рената Нуреева',
-    position: 'CEO &amp; Founder, ProHunters',
+    position: 'CEO\u00A0&amp; Founder, ProHunters',
     photo: 'img/speakers/renata-nureyeva.jpg',
     initials: 'РН',
-    bio: '<p>Основатель агентства Recruitment &amp; Executive Search. ProHunters помогает среднему и крупному бизнесу находить ключевых специалистов и руководителей в Казахстане, Центральной Азии, ОАЭ, Европе, Африке и США.</p>',
+    bio: '<p>Основала агентство recruitment\u00A0&amp; executive\u00A0search\u00A0— ProHunters. Команда подбирает ключевых специалистов и\u00A0руководителей для\u00A0среднего и\u00A0крупного бизнеса в\u00A0Казахстане, Центральной\u00A0Азии, ОАЭ, Европе, Африке и\u00A0США.</p>',
     topic: null
   },
   'zaura-karakozhaeva': {
     name: 'Заура Каракожаева',
-    position: 'Консультант-аналитик ProHunters · HR Advisor, NCOC',
+    position: '<span class="nowrap">Консультант-аналитик</span> ProHunters\u00A0· HR\u00A0Advisor, NCOC',
     photo: 'img/speakers/zaura-karakozhaeva.jpg',
     initials: 'ЗК',
-    bio: '<p>14 лет опыта в HR и Total Rewards. Эксперт по компенсациям, аналитике зарплат, грейдированию и бюджету персонала. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
+    bio: '<p>14\u00A0лет работает в\u00A0HR и\u00A0Total\u00A0Rewards. Занимается компенсациями, аналитикой зарплат, грейдированием и\u00A0бюджетом на\u00A0персонал. Соавтор исследования «Рейтинг работодателей Казахстана».</p>',
     topic: null
   },
   'natalia-timofeeva': {
     name: 'Наталья Тимофеева',
-    position: 'Внешний консультант ProHunters · ex-HRD KPMG и Исламского банка',
+    position: 'Внешний консультант ProHunters\u00A0· <span class="nowrap">ex-HRD</span> KPMG и\u00A0Исламского банка',
     photo: 'img/speakers/natalia-timofeeva.jpg',
     initials: 'НТ',
-    bio: '<p>Более 15 лет в международных компаниях в IT, телекоме, финансах и консалтинге. Эксперт по вознаграждению, организационному проектированию и HR-аналитике. Лауреат премии «Хрустальная пирамида HR».</p>',
+    bio: '<p>Более 15\u00A0лет работает в\u00A0международных компаниях: IT, телеком, финансы и\u00A0консалтинг. Специализируется на\u00A0вознаграждении, организационном проектировании и\u00A0<span class="nowrap">HR-аналитике</span>. Лауреат премии «Хрустальная\u00A0пирамида».</p>',
     topic: null
   },
   'asel-mashanova': {
     name: 'Асель Машанова',
-    position: 'Сооснователь LULU Group',
+    position: 'Сооснователь LULU\u00A0Group',
     photo: 'img/speakers/asel-mashanova.jpg',
     initials: 'АМ',
-    bio: '<p>Предпринимательница, создательница проектов LULU, Metabody, Meta Farm и Sau Apothecary на пересечении красоты, здоровья и осознанного образа жизни.</p>',
-    topic: 'Карьера, амбиции и личный выбор. Тема выступления уточняется.'
+    bio: '<p>Предпринимательница. Создала проекты LULU, Metabody, Meta\u00A0Farm и\u00A0Sau\u00A0Apothecary о\u00A0красоте, здоровье и\u00A0осознанном образе жизни.</p>',
+    topic: 'О\u00A0карьере, амбициях и\u00A0личном выборе. Точную тему объявим позже.'
   },
   'galiya-khamitova': {
     name: 'Галия Хамитова',
-    position: 'Президент Erickson Coaching International Central Asia',
+    position: 'Президент Erickson Coaching International Central\u00A0Asia',
     photo: 'img/speakers/galiya-khamitova.jpg',
     initials: 'ГХ',
-    bio: '<p>Профессиональный коуч PCC ICF, ментор-коуч и коуч-супервизор с квалификациями ICF и EMCC. Более 6 000 часов индивидуального коучинга топ-руководителей.</p>',
+    bio: '<p>Коуч уровня PCC\u00A0ICF, <span class="nowrap">ментор-коуч</span> и\u00A0<span class="nowrap">коуч-супервизор</span> с\u00A0квалификациями ICF и\u00A0EMCC. Провела более 6\u00A0000\u00A0часов индивидуального коучинга с\u00A0<span class="nowrap">топ-руководителями</span>.</p>',
     topic: null
   },
   'karashash-dzhuzeeva': {
     name: 'Карашаш Джузеева',
-    position: 'Предпринимательница, издатель Vintage Kazakhstan',
+    position: 'Предпринимательница, издатель Vintage\u00A0Kazakhstan',
     photo: 'img/speakers/karashash-dzhuzeeva.jpg',
     initials: 'КД',
-    bio: '<p>Медиаменеджер и общественный деятель. Основательница и издатель журнала Vintage Kazakhstan, развивающая предпринимательские и культурные проекты.</p>',
+    bio: '<p>Медиаменеджер и\u00A0общественный деятель. Основала журнал Vintage\u00A0Kazakhstan и\u00A0остаётся его издателем, развивает предпринимательские и\u00A0культурные проекты.</p>',
     topic: null
   },
   'ilyas-bakirov': {
     name: 'Ильяс Бакиров',
-    position: 'Основатель и управляющий партнёр MKS KUSTO LOGISTICS',
+    position: 'Основатель и\u00A0управляющий партнёр MKS\u00A0Kusto\u00A0Logistics',
     photo: 'img/speakers/ilyas-bakirov.jpg',
     initials: 'ИБ',
-    bio: '<p>Предприниматель, учредитель BAKIROV CONSTRUCTION GROUP и член благотворительного фонда BIRLIK.</p>',
+    bio: '<p>Предприниматель, учредитель Bakirov Construction Group и\u00A0член благотворительного фонда BIRLIK.</p>',
     topic: null
   },
   'maksat-zharasbaev': {
     name: 'Максат Жарасбаев',
-    position: 'Генеральный директор Inditex Kazakhstan · Country Manager',
+    position: 'Генеральный директор Inditex\u00A0Kazakhstan\u00A0· Country\u00A0Manager',
     photo: 'img/speakers/maksat-zharasbaev.jpg',
     initials: 'МЖ',
-    bio: '<p>Руководитель бизнеса Inditex в Казахстане с международным опытом в ритейле и управлении персоналом. Ранее занимал руководящие HR-позиции в международной структуре группы.</p>',
+    bio: '<p>Руководит бизнесом Inditex в\u00A0Казахстане. Работал в\u00A0ритейле и\u00A0управлении персоналом на\u00A0международном уровне, в\u00A0том числе на\u00A0руководящих <span class="nowrap">HR-позициях</span> в\u00A0структуре группы.</p>',
     topic: null
   },
   'moldir-seidan': {
     name: 'Молдир Сейдан',
-    position: 'Основатель HR KEY · HR-предприниматель · Executive Coach',
+    position: 'Основатель HR\u00A0KEY\u00A0· <span class="nowrap">HR-предприниматель</span>\u00A0· Executive\u00A0Coach',
     photo: 'img/speakers/moldir-seidan.jpg',
     initials: 'МС',
-    bio: '<p>Более 15 лет в HR. Советник CEO Anor Bank, сертифицированный executive-коуч, автор подкастов о бизнесе. Пятикратная победительница премии HR Brand от HeadHunter Central Asia.</p>',
-    topic: '«Эволюция карьеры: от амбиций к свободе»'
+    bio: '<p>Более 15\u00A0лет в\u00A0HR. Советник CEO ANORBANK, сертифицированный <span class="nowrap">executive-коуч</span>, автор подкастов о\u00A0бизнесе. Пятикратная победительница премии «<span class="nowrap">HR-бренд</span> Центральная\u00A0Азия» от\u00A0HeadHunter.</p>',
+    topic: '«Эволюция карьеры: от\u00A0амбиций к\u00A0свободе»'
   }
 };
 
@@ -227,12 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
   const REQUEST_TIMEOUT_MS = 30000;
   const ERROR_MESSAGES = {
-    invalid: 'Проверьте, что все поля заполнены корректно.',
-    captcha: 'Не удалось пройти проверку безопасности. Попробуйте ещё раз.',
+    invalid: 'Проверьте, правильно ли заполнены поля.',
+    captcha: 'Проверка безопасности не\u00A0прошла. Попробуйте ещё раз.',
     rate_limited: 'Сейчас слишком много заявок. Попробуйте через минуту.',
-    closed: 'Регистрация на встречу завершена.',
+    closed: 'Регистрация на\u00A0встречу завершена.',
     full: 'Регистрация закрыта: все места заняты.',
-    default: 'Не удалось отправить заявку. Попробуйте ещё раз или напишите Аиде.'
+    default: 'Не\u00A0удалось отправить заявку. Попробуйте ещё раз или напишите Аиде.'
   };
 
   const endpoint = form.dataset.endpoint || '';
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!turnstileToken) {
-      setStatus('Подождите, идёт проверка безопасности, и нажмите кнопку ещё раз.', true);
+      setStatus('Подождите пару секунд, пока завершится проверка, и\u00A0нажмите кнопку ещё раз.', true);
       return;
     }
 
