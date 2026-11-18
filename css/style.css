@@ -854,6 +854,7 @@ body {
   border-radius: 10px 10px 3px 3px;
   background: linear-gradient(180deg, var(--color-gold-light), rgba(201, 169, 97, 0.1));
   transform-origin: bottom;
+  transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bento-bars span:nth-child(1) { height: 26%; opacity: 0.32; }
@@ -880,9 +881,51 @@ body {
   z-index: -1;
   width: 280px;
   height: 280px;
+  overflow: visible;
   fill: none;
   stroke: rgba(138, 106, 44, 0.34);
   stroke-width: 1;
+}
+
+.bento-arcs circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Без анимации видны четыре кольца радиусом 44, 78, 112 и 138 px */
+.bento-arcs circle:nth-child(1) { transform: scale(0.256); }
+.bento-arcs circle:nth-child(2) { transform: scale(0.453); }
+.bento-arcs circle:nth-child(3) { transform: scale(0.651); }
+.bento-arcs circle:nth-child(4) { transform: scale(0.802); }
+.bento-arcs circle:nth-child(5) { opacity: 0; }
+
+@keyframes bento-ring {
+  from {
+    opacity: 0;
+    transform: scale(0.05);
+  }
+
+  12%,
+  68% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bento-arcs circle {
+    animation: bento-ring 10s linear infinite;
+  }
+
+  .bento-arcs circle:nth-child(2) { animation-delay: -2s; }
+  .bento-arcs circle:nth-child(3) { animation-delay: -4s; }
+  .bento-arcs circle:nth-child(4) { animation-delay: -6s; }
+  .bento-arcs circle:nth-child(5) { animation-delay: -8s; }
 }
 
 .bento-card--people {
@@ -894,13 +937,23 @@ body {
   margin-bottom: auto;
   padding-bottom: 28px;
   overflow: clip;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
+}
+
+.bento-avatars.is-dragging,
+.bento-avatars.is-dragging .bento-avatar {
+  cursor: grabbing;
 }
 
 .bento-avatars__track {
   display: flex;
   width: max-content;
+  will-change: transform;
 }
 
 .bento-avatar {
@@ -927,6 +980,7 @@ body {
   border: 3px solid #ffffff;
   border-radius: var(--radius-full);
   object-fit: cover;
+  -webkit-user-drag: none;
   transition: border-color 0.2s ease;
 }
 
@@ -937,29 +991,6 @@ body {
 
   .bento-avatar:hover img {
     border-color: var(--color-gold);
-  }
-}
-
-@keyframes bento-avatars-scroll {
-  to {
-    transform: translate3d(-25%, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  /* В дорожке четыре одинаковых набора, поэтому сдвиг на четверть незаметен */
-  .bento-avatars.is-running .bento-avatars__track {
-    animation: bento-avatars-scroll 30s linear infinite;
-  }
-
-  .bento-avatars.is-running:focus-within .bento-avatars__track {
-    animation-play-state: paused;
-  }
-
-  @media (hover: hover) {
-    .bento-avatars.is-running:hover .bento-avatars__track {
-      animation-play-state: paused;
-    }
   }
 }
 

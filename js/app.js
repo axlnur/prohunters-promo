@@ -38,7 +38,7 @@ const speakersData = {
     position: 'Сооснователь LULU\u00A0Group',
     photo: 'img/speakers/asel-mashanova.jpg',
     initials: 'АМ',
-    bio: '<p>Предпринимательница, создательница проектов LULU, Metabody, Meta\u00A0Farm и\u00A0Sau\u00A0Apothecary на\u00A0пересечении красоты, здоровья и\u00A0осознанного образа жизни.</p>',
+    bio: '<p>Предприниматель, создатель проектов LULU, Metabody, Meta\u00A0Farm и\u00A0Sau\u00A0Apothecary на\u00A0пересечении красоты, здоровья и\u00A0осознанного образа жизни.</p>',
     topic: '«Как быть успешным в\u00A0мире технологий и\u00A0оставаться собой»'
   },
   'galiya-khamitova': {
@@ -51,10 +51,10 @@ const speakersData = {
   },
   'karashash-dzhuzeeva': {
     name: 'Карашаш Джузеева',
-    position: 'Предпринимательница, издатель Vintage\u00A0Kazakhstan',
+    position: 'Предприниматель, издатель Vintage\u00A0Kazakhstan',
     photo: 'img/speakers/karashash-dzhuzeeva.jpg',
     initials: 'КД',
-    bio: '<p>Медиаменеджер и\u00A0общественный деятель. Основательница и\u00A0издатель журнала Vintage\u00A0Kazakhstan, развивающая предпринимательские и\u00A0культурные проекты.</p>',
+    bio: '<p>Медиаменеджер и\u00A0общественный деятель. Основатель и\u00A0издатель журнала Vintage\u00A0Kazakhstan. Развивает предпринимательские и\u00A0культурные проекты.</p>',
     ...PANEL_DISCUSSION
   },
   'ilyas-bakirov': {
@@ -78,7 +78,7 @@ const speakersData = {
     position: 'Основатель HR\u00A0KEY\u00A0· <span class="nowrap">HR-предприниматель</span>\u00A0· Executive\u00A0Coach',
     photo: 'img/speakers/moldir-seidan.jpg',
     initials: 'МС',
-    bio: '<p>Более 15\u00A0лет в\u00A0HR. Советник CEO ANORBANK, сертифицированный <span class="nowrap">executive-коуч</span>, автор подкастов о\u00A0бизнесе. Пятикратная победительница премии «<span class="nowrap">HR-бренд</span> Центральная\u00A0Азия» от\u00A0HeadHunter.</p>',
+    bio: '<p>Более 15\u00A0лет в\u00A0HR. Советник CEO ANORBANK, сертифицированный <span class="nowrap">executive-коуч</span>, автор подкастов о\u00A0бизнесе. Пятикратный победитель премии «<span class="nowrap">HR-бренд</span> Центральная\u00A0Азия» от\u00A0HeadHunter.</p>',
     topic: '«Эволюция карьеры: от\u00A0амбиций к\u00A0свободе»'
   },
   'grigory-shanin': {
@@ -259,27 +259,234 @@ document.addEventListener('DOMContentLoaded', () => {
     [avatars[index], avatars[swapIndex]] = [avatars[swapIndex], avatars[index]];
   }
 
-  track.replaceChildren(...avatars);
+  // С клавиатуры доступен только исходный набор, копии открываются мышью и касанием
+  const cloneSet = () => avatars.map((avatar) => {
+    const clone = avatar.cloneNode(true);
 
-  // Три копии набора закрывают карточку любой ширины и делают цикл бесшовным
-  for (let copy = 0; copy < 3; copy += 1) {
-    avatars.forEach((avatar) => {
-      const clone = avatar.cloneNode(true);
+    clone.tabIndex = -1;
+    clone.setAttribute('aria-hidden', 'true');
+    return clone;
+  });
 
-      // С клавиатуры доступен только первый набор, копии открываются мышью и касанием
-      clone.tabIndex = -1;
-      clone.setAttribute('aria-hidden', 'true');
-      track.appendChild(clone);
-    });
+  // Копии по обе стороны от исходного набора делают цикл бесшовным на карточке любой ширины
+  track.replaceChildren(...cloneSet(), ...avatars, ...cloneSet(), ...cloneSet());
+
+  const AUTO_SECONDS_PER_SET = 30;
+  const DRAG_THRESHOLD_PX = 6;
+  const MAX_THROW_SPEED = 1200;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let setWidth = 1;
+  let offset = 0;
+  let autoSpeed = 0;
+  let throwSpeed = 0;
+  let lastFrame = 0;
+  let frameId = null;
+  let isHovered = false;
+  let hasKeyboardFocus = false;
+  let suppressClick = false;
+  let drag = null;
+
+  function measure() {
+    setWidth = track.children[avatars.length].offsetLeft - track.children[0].offsetLeft;
   }
 
-  track.addEventListener('click', (event) => {
+  function render() {
+    // Сдвиг остаётся в пределах одного набора, поэтому цикл бесшовный в обе стороны.
+    // При фокусе с клавиатуры выбранная аватарка должна оставаться на экране.
+    if (!hasKeyboardFocus) offset = ((offset % setWidth) - setWidth) % setWidth;
+    track.style.transform = `translate3d(${offset}px, 0, 0)`;
+  }
+
+  function tick(now) {
+    const seconds = Math.min((now - lastFrame) / 1000, 0.05);
+    lastFrame = now;
+
+    if (!drag) {
+      const isPaused = isHovered || hasKeyboardFocus || reducedMotion.matches;
+      const targetSpeed = isPaused ? 0 : -setWidth / AUTO_SECONDS_PER_SET;
+
+      autoSpeed += (targetSpeed - autoSpeed) * (1 - Math.exp(-seconds * 4));
+      throwSpeed *= Math.exp(-seconds * 3.5);
+      if (Math.abs(throwSpeed) < 1) throwSpeed = 0;
+
+      offset += (autoSpeed + throwSpeed) * seconds;
+      render();
+    }
+
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    if (frameId !== null) return;
+    lastFrame = performance.now();
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    if (frameId === null) return;
+    cancelAnimationFrame(frameId);
+    frameId = null;
+  }
+
+  function endDrag(event) {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+
+    if (drag.isMoving) {
+      const isFresh = event.timeStamp - drag.lastTime < 80;
+
+      suppressClick = true;
+      carousel.classList.remove('is-dragging');
+      throwSpeed = isFresh && !reducedMotion.matches
+        ? Math.max(-MAX_THROW_SPEED, Math.min(MAX_THROW_SPEED, drag.speed))
+        : 0;
+    }
+
+    drag = null;
+  }
+
+  carousel.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+
+    suppressClick = false;
+    throwSpeed = 0;
+    drag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startOffset: offset,
+      lastX: event.clientX,
+      lastTime: event.timeStamp,
+      speed: 0,
+      isMoving: false
+    };
+  });
+
+  carousel.addEventListener('pointermove', (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+
+    const distance = event.clientX - drag.startX;
+
+    if (!drag.isMoving) {
+      if (Math.abs(distance) < DRAG_THRESHOLD_PX) return;
+      drag.isMoving = true;
+      carousel.setPointerCapture(event.pointerId);
+      carousel.classList.add('is-dragging');
+    }
+
+    const elapsed = event.timeStamp - drag.lastTime;
+
+    if (elapsed > 0) {
+      const speed = ((event.clientX - drag.lastX) / elapsed) * 1000;
+      drag.speed = drag.speed * 0.7 + speed * 0.3;
+    }
+
+    drag.lastX = event.clientX;
+    drag.lastTime = event.timeStamp;
+    offset = drag.startOffset + distance;
+    render();
+  });
+
+  carousel.addEventListener('pointerup', endDrag);
+  carousel.addEventListener('pointercancel', endDrag);
+  carousel.addEventListener('dragstart', (event) => event.preventDefault());
+
+  carousel.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') isHovered = true;
+  });
+
+  carousel.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'mouse') isHovered = false;
+  });
+
+  // Выбранная с клавиатуры аватарка сдвигается в видимую часть карусели
+  carousel.addEventListener('focusin', (event) => {
+    if (!event.target.matches(':focus-visible')) return;
+
+    const area = carousel.getBoundingClientRect();
+    const avatar = event.target.getBoundingClientRect();
+
+    hasKeyboardFocus = true;
+    offset += area.left + area.width / 2 - (avatar.left + avatar.width / 2);
+    render();
+  });
+
+  carousel.addEventListener('focusout', () => {
+    hasKeyboardFocus = false;
+  });
+
+  carousel.addEventListener('click', (event) => {
+    if (suppressClick) {
+      suppressClick = false;
+      return;
+    }
+
     const avatar = event.target.closest('.bento-avatar');
 
     if (avatar) openModal(avatar.dataset.speaker);
   });
 
-  carousel.classList.add('is-running');
+  window.addEventListener('resize', measure);
+  measure();
+  render();
+
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) start();
+    else stop();
+  }).observe(carousel);
+});
+
+// ============================================
+// RESEARCH CHART ANIMATION
+// ============================================
+
+// Случайный столбик растёт или опускается, при этом график сохраняет общую форму
+document.addEventListener('DOMContentLoaded', () => {
+  const chart = document.querySelector('.bento-bars');
+
+  if (!chart || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const MAX_SHIFT = 22;
+  const MIN_SHIFT = 6;
+  const MAX_FALL_RATIO = 0.45;
+  const bars = [...chart.children];
+  const baseHeights = bars.map((bar) => (bar.offsetHeight / chart.clientHeight) * 100);
+  const heights = [...baseHeights];
+
+  let lastIndex = -1;
+  let timerId = null;
+  let isVisible = false;
+
+  function moveRandomBar() {
+    let index = Math.floor(Math.random() * (bars.length - 1));
+    if (index >= lastIndex && lastIndex !== -1) index += 1;
+    lastIndex = index;
+
+    const base = baseHeights[index];
+    const isFalling = heights[index] >= base;
+    const limit = isFalling ? Math.min(MAX_SHIFT, base * MAX_FALL_RATIO) : MAX_SHIFT;
+    const shift = MIN_SHIFT + Math.random() * (limit - MIN_SHIFT);
+
+    heights[index] = Math.min(100, base + (isFalling ? -shift : shift));
+    bars[index].style.height = `${heights[index]}%`;
+    schedule();
+  }
+
+  function schedule() {
+    timerId = setTimeout(moveRandomBar, 700 + Math.random() * 600);
+  }
+
+  function update() {
+    clearTimeout(timerId);
+    timerId = null;
+    if (isVisible && !document.hidden) schedule();
+  }
+
+  document.addEventListener('visibilitychange', update);
+
+  new IntersectionObserver(([entry]) => {
+    isVisible = entry.isIntersecting;
+    update();
+  }).observe(chart);
 });
 
 // ============================================
