@@ -22,12 +22,12 @@
   <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#1a2332">
+  <meta name="theme-color" content="#050507">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -81,13 +81,17 @@
     <div class="container">
       <div class="hero-content">
         <img src="img/logo.png" alt="ProHunters" class="hero-logo">
+        <p class="hero-eyebrow">закрытая встреча</p>
         <h1 class="hero-title">
-          <span class="hero-title-prelude">закрытая встреча</span>
-          <span class="hero-title-main">Сильная карьера. Живой человек.</span>
+          <span class="hero-title-line">Сильная карьера.</span>
+          <span class="hero-title-line hero-title-line--accent">Живой человек.</span>
         </h1>
         <p class="hero-subtitle">Итоги <strong class="hero-subtitle__rating">«Рейтинга работодателей Казахстана 2026»</strong> и открытый диалог о лидерстве, амбициях, результатах и людях за ними.</p>
 
-        <a href="#register" class="cta-button primary glass-button">Зарегистрироваться</a>
+        <div class="hero-actions">
+          <a href="#register" class="cta-button primary glass-button">Зарегистрироваться</a>
+          <a href="#program" class="hero-link">Программа встречи <span aria-hidden="true">›</span></a>
+        </div>
 
         <div class="hero-details glass-pills">
           <a href="prohunters.ics" download="ProHunters_11_Dec_2026.ics" class="glass-pill date-pill" title="Добавить в календарь">
@@ -108,12 +112,6 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="scroll-indicator">
-      <span>Прокрутите вниз</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
     </div>
   </header>
 
