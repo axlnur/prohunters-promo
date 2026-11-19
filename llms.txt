@@ -35,13 +35,13 @@ Registration asks for the guest's name, company, and an email address or phone n
 
 Each link opens the speaker's profile with a short bio and talk topic.
 
-- [Grigory Shanin](https://2026.prohunters.kz/#grigory_shanin): Event moderator
-- [Renata Nureyeva](https://2026.prohunters.kz/#renata_nureyeva): CEO and Founder, ProHunters
-- [Zaura Karakozhaeva](https://2026.prohunters.kz/#zaura_karakozhaeva): Consultant-analyst, ProHunters; HR Advisor, NCOC
-- [Natalia Timofeeva](https://2026.prohunters.kz/#natalia_timofeeva): External consultant, ProHunters; former HR Director at KPMG and an Islamic bank
-- [Asel Mashanova](https://2026.prohunters.kz/#asel_mashanova): Co-founder, LULU Group
-- [Galiya Khamitova](https://2026.prohunters.kz/#galiya_khamitova): President, Erickson Coaching International Central Asia
-- [Karashash Dzhuzeeva](https://2026.prohunters.kz/#karashash_dzhuzeeva): Entrepreneur; publisher, Vintage Kazakhstan
-- [Ilyas Bakirov](https://2026.prohunters.kz/#ilyas_bakirov): Founder and Managing Partner, MKS Kusto Logistics
-- [Maxat Zharasbayev](https://2026.prohunters.kz/#maksat_zharasbaev): General Director and Country Manager, Inditex Kazakhstan
-- [Moldir Seidan](https://2026.prohunters.kz/#moldir_seidan): Founder, HR KEY; HR entrepreneur and executive coach
+- [Grigory Shanin](https://2026.prohunters.kz/#grigory-shanin): Event moderator
+- [Renata Nureyeva](https://2026.prohunters.kz/#renata-nureyeva): CEO and Founder, ProHunters
+- [Zaura Karakozhaeva](https://2026.prohunters.kz/#zaura-karakozhaeva): Consultant-analyst, ProHunters; HR Advisor, NCOC
+- [Natalia Timofeeva](https://2026.prohunters.kz/#natalia-timofeeva): External consultant, ProHunters; former HR Director at KPMG and an Islamic bank
+- [Asel Mashanova](https://2026.prohunters.kz/#asel-mashanova): Co-founder, LULU Group
+- [Galiya Khamitova](https://2026.prohunters.kz/#galiya-khamitova): President, Erickson Coaching International Central Asia
+- [Karashash Dzhuzeeva](https://2026.prohunters.kz/#karashash-dzhuzeeva): Entrepreneur; publisher, Vintage Kazakhstan
+- [Ilyas Bakirov](https://2026.prohunters.kz/#ilyas-bakirov): Founder and Managing Partner, MKS Kusto Logistics
+- [Maxat Zharasbayev](https://2026.prohunters.kz/#maksat-zharasbaev): General Director and Country Manager, Inditex Kazakhstan
+- [Moldir Seidan](https://2026.prohunters.kz/#moldir-seidan): Founder, HR KEY; HR entrepreneur and executive coach

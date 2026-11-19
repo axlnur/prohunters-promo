@@ -27,6 +27,7 @@
 - [Tech stack](#tech-stack)
 - [Getting started](#getting-started)
 - [Project structure](#project-structure)
+- [Speaker portraits](#speaker-portraits)
 - [Registration setup](#registration-setup)
 - [Deployment](#deployment)
 - [Security](#security)
@@ -42,8 +43,10 @@ This repository contains the event website. The site content is in Russian.
 ## Features
 
 - Responsive single-page layout tested from 320 to 1440 px
-- Event program, speaker cards, and speaker detail dialogs
-- Registration form that saves guests to a private Google Sheet
+- Event program, speaker cards, and speaker dialogs with shareable links such as `/#renata-nureyeva`
+- Keyboard navigation: Tab moves between sections, Enter steps into one
+- Registration form with an email or phone number that saves guests to a private Google Sheet
+- Registration closes at the deadline, and a thank-you screen replaces the page after the event
 - Downloadable calendar file (`prohunters.ics`)
 - Scroll-driven animations that respect `prefers-reduced-motion`
 - [`llms.txt`](llms.txt) with an English summary of the event for AI agents
@@ -64,6 +67,7 @@ This repository contains the event website. The site content is in Russian.
 
 - [Node.js](https://nodejs.org) 22.15 or later
 - npm
+- Python 3.10 or later, only for the speaker portrait scripts
 
 ### Installation
 
@@ -87,6 +91,8 @@ npm ci
 
 ```text
 .
+├── .claude/skills/
+│   └── speaker-portrait/ # Claude skill and scripts for speaker portraits
 ├── apps-script/         # Registration back end for Google Apps Script
 │   ├── Code.gs
 │   └── appsscript.json
@@ -101,6 +107,21 @@ npm ci
 ├── CNAME                # Custom domain for GitHub Pages
 └── webpack.*.js         # Webpack configuration
 ```
+
+## Speaker portraits
+
+All portraits share one framing, so cards, dialogs, and avatar circles line up. To add or replace one, put the source photo in `.tmp/` and ask Claude Code to replace the speaker's photo. The `speaker-portrait` skill measures the face, renders both files, and compares them with the neighbouring speakers.
+
+To run the scripts by hand:
+
+```bash
+python3 -m pip install -r .claude/skills/speaker-portrait/requirements.txt
+python3 .claude/skills/speaker-portrait/scripts/measure.py .tmp/photo.jpg
+python3 .claude/skills/speaker-portrait/scripts/portrait.py .tmp/photo.jpg .tmp/portrait <slug> --eyes X1,Y1,X2,Y2 --face TOP,BOTTOM
+python3 .claude/skills/speaker-portrait/scripts/compare.py .tmp/portrait <slug> --neighbours <slug>,<slug>
+```
+
+The framing rules and per-speaker exceptions are in [`CLAUDE.md`](CLAUDE.md).
 
 ## Registration setup
 

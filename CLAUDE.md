@@ -28,7 +28,7 @@ Update every location when a fact changes:
 - **Speaker bio or topic:** `speakersData` in `js/app.js`
 - **Speaker added or removed:** also the avatar list in `.bento-avatars__track` in `index.html`
 
-The `speakersData` key also forms the shareable dialog link (`#zaura_karakozhaeva`), so renaming a key breaks links people have already sent.
+The `speakersData` key also forms the shareable dialog link (`#zaura-karakozhaeva`; older links with underscores still work), so renaming a key breaks links people have already sent.
 
 `prohunters.ics` needs CRLF line endings and lines folded at 75 octets (RFC 5545).
 
@@ -42,7 +42,14 @@ Line breaks are controlled by hand:
 
 ## Speaker portraits
 
-Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>.jpg` (960×1200) and `<slug>-avatar.jpg` (280×280), both JPEG sRGB. In the full portrait, centre the eyes horizontally, place the eye line at 38% of the height, and make the face (forehead to chin) 36% of the height, so cards, dialogs, and avatars line up. When a tilted head or a hand near the chin makes the face sit low, raise the eye line to about 35%, as for Zaura, Asel, Moldir, and Maksat. The avatar is the 696×696 square at (132, 164) of the full portrait, scaled down; for Maksat it starts at y 72 so his face sits lower in the circle. Save both at JPEG quality 88 with 4:4:4 chroma and an embedded sRGB profile.
+Process photos with the `speaker-portrait` skill in `.claude/skills/speaker-portrait/`. Keep source photos in `.tmp/`, which git ignores.
+
+Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>.jpg` (960×1200) and `<slug>-avatar.jpg` (280×280), both JPEG sRGB. In the full portrait, centre the eyes horizontally, place the eye line at 38% of the height, and make the face (forehead to chin) 36% of the height, so cards, dialogs, and avatars line up. The avatar is the 696×696 square at (132, 164) of the full portrait, scaled down. Save both at JPEG quality 88 with 4:4:4 chroma and an embedded sRGB profile.
+
+Exceptions:
+
+- Eye line at 35%, because a tilted head or a hand near the chin makes the face sit low: Zaura, Asel, Moldir, Maksat.
+- Maksat: the avatar square starts at y 72 so his face sits lower in the circle, and the portrait is sharpened because the source was upscaled about 2×.
 
 ## Registration
 

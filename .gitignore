@@ -7,6 +7,9 @@ dist
 .DS_Store
 **/.DS_Store
 
+# Source photos and other scratch files
+.tmp/
+
 # Local secrets
 .env
 .env.*

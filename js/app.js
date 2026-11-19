@@ -113,9 +113,10 @@ const DEFAULT_TOPIC_LABEL = modalTopicLabel.textContent;
 
 let modalOpener = null;
 
-// Dialog links use the speakersData key (#zaura_karakozhaeva), so renaming a key breaks shared links
+// Dialog links use the speakersData key (#zaura-karakozhaeva), so renaming a key breaks shared links.
+// Older links with underscores (#zaura_karakozhaeva) still open the dialog.
 function getSpeakerHash(speakerId) {
-  return `#${speakerId.replace(/-/g, '_')}`;
+  return `#${speakerId}`;
 }
 
 function getSpeakerFromHash(hash) {
