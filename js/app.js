@@ -1,6 +1,4 @@
 // Speaker Database
-// Портреты лежат в img/speakers: <slug>.jpg (960×1200) и <slug>-avatar.jpg (280×280).
-// Тема и подпись общие для всех участников панельной дискуссии
 const PANEL_DISCUSSION = {
   topic: '«Сильный бизнес. Живые люди. Как достигать результатов, не\u00A0истощая себя и\u00A0команду»',
   topicLabel: 'Панельная дискуссия на\u00A0тему:'
@@ -14,7 +12,7 @@ const speakersData = {
     position: 'CEO\u00A0&amp; Founder, ProHunters',
     photo: 'img/speakers/renata-nureyeva.jpg',
     initials: 'РН',
-    bio: '<p>Команда Ренаты закрывает вакансии ключевых специалистов и\u00A0руководителей для\u00A0среднего и\u00A0крупного бизнеса в\u00A0Казахстане, Центральной\u00A0Азии, ОАЭ, Европе, Африке и\u00A0США.</p>',
+    bio: '<p>Компания\u00A0ProHunters закрывает вакансии ключевых специалистов и\u00A0руководителей для\u00A0среднего и\u00A0крупного бизнеса в\u00A0Казахстане, Центральной\u00A0Азии, ОАЭ, Европе, Африке и\u00A0США.</p>',
     topic: RESEARCH_PRESENTATION_TOPIC
   },
   'zaura-karakozhaeva': {
@@ -113,11 +111,9 @@ const modalTopicLabel = modal.querySelector('.modal-topic-label');
 const modalTopicText = modal.querySelector('.modal-topic-text');
 const DEFAULT_TOPIC_LABEL = modalTopicLabel.textContent;
 
-// Элемент, с которого открыли диалог: после закрытия фокус возвращается на него
 let modalOpener = null;
 
-// Ссылка на диалог: #имя_фамилия латиницей, например #zaura_karakozhaeva.
-// Она строится из ключа speakersData, поэтому переименование ключа ломает отправленные ссылки.
+// Dialog links use the speakersData key (#zaura_karakozhaeva), so renaming a key breaks shared links
 function getSpeakerHash(speakerId) {
   return `#${speakerId.replace(/-/g, '_')}`;
 }
@@ -195,8 +191,7 @@ function closeModal() {
 
 modalPhoto.addEventListener('load', () => modalPhoto.classList.add('is-loaded'));
 
-// Полный портрет начинает загружаться при наведении, фокусе или касании, ещё до открытия диалога.
-// Портрет Аиды больше нигде на странице не показывается, без этого он грузился бы только после клика.
+// Preload the full portrait on intent; Aida's is not used anywhere else on the page
 const preloadedPhotos = new Set();
 
 function preloadSpeakerPhoto(event) {
@@ -212,7 +207,6 @@ function preloadSpeakerPhoto(event) {
   document.addEventListener(type, preloadSpeakerPhoto, { passive: true });
 });
 
-// Ссылка на диалог открывает его при загрузке и при смене адреса на открытой странице
 function openModalFromHash() {
   const speakerId = getSpeakerFromHash(location.hash);
 
@@ -257,7 +251,7 @@ modalOverlay.addEventListener('click', closeModal);
 // Keyboard Navigation
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modal.classList.contains('active')) {
-    // Навигация по разделам не обрабатывает уже использованный Esc
+    // Marks Esc as handled for section navigation
     e.preventDefault();
     closeModal();
   }
@@ -272,9 +266,7 @@ modal.querySelector('.modal-content').addEventListener('click', (e) => {
 // SECTION KEYBOARD NAVIGATION
 // ============================================
 
-// Tab и Shift+Tab переключают разделы по кругу. Enter переводит фокус на первый элемент раздела,
-// дальше Tab идёт по элементам этого раздела, а после последнего переходит к следующему разделу.
-// Esc возвращает фокус с элемента на его раздел.
+// Tab cycles through sections, Enter steps into one, Esc returns to it
 document.addEventListener('DOMContentLoaded', () => {
   const sections = [...document.querySelectorAll('[data-nav-section]')];
 
@@ -283,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const ITEM_SELECTOR = 'a[href], button, input, select, textarea, iframe, [tabindex]';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Копии аватарок, поле-ловушка, скрытая форма и заблокированная кнопка сюда не попадают
   function getItems(section) {
     return [...section.querySelectorAll(ITEM_SELECTOR)].filter((item) => (
       item.tabIndex >= 0 && !item.disabled && item.getClientRects().length > 0
@@ -300,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return sections[(index + direction + sections.length) % sections.length];
   }
 
-  // Если ни один раздел не в фокусе, соседний ищется от текущей позиции прокрутки
   function getSectionFromScroll(direction) {
     if (direction > 0) {
       return sections.find((section) => section.getBoundingClientRect().top > 1) || sections[0];
@@ -312,18 +302,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return Boolean(first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING);
   }
 
-  // Turnstile рисует проверку в закрытом shadow root, и скрипт не видит её iframe.
-  // Если по пути лежит виджет, фокус переводит сам браузер: он умеет зайти внутрь.
+  // Turnstile's iframe sits in a closed shadow root, so the browser moves focus across it
   const turnstileWidget = document.getElementById('turnstile-widget');
 
   function crossesTurnstile(active, next, direction) {
-    if (!turnstileWidget || !turnstileWidget.hasChildNodes()) return false;
+    if (!turnstileWidget || !turnstileWidget.classList.contains('is-shown')) return false;
     if (direction > 0) return isBefore(active, turnstileWidget) && (!next || isBefore(turnstileWidget, next));
     return isBefore(turnstileWidget, active) && (!next || isBefore(next, turnstileWidget));
   }
 
-  // Из iframe виджета браузер возвращает фокус на body. Тогда обход продолжается от виджета
-  // в разделе, где фокус был последним.
+  // Leaving that iframe drops focus to body; continue from the widget
   let lastFocused = null;
 
   document.addEventListener('focusin', (event) => {
@@ -337,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return section && section.contains(turnstileWidget) ? section : null;
   }
 
-  // Возвращает false, если переход нужно оставить браузеру
+  // Returns false when the browser should handle Tab
   function moveWithinSection(section, active, direction) {
     const items = getItems(section);
     const next = direction > 0
@@ -355,7 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey) return;
 
-    // В диалоге спикера один элемент управления, фокус остаётся на нём
     if (modal.classList.contains('active')) {
       if (event.key === 'Tab') {
         event.preventDefault();
@@ -401,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // После прокрутки колесом или пальцем Tab продолжает от видимой части страницы
+  // After wheel or touch scrolling, Tab continues from the visible section
   function releaseSection() {
     if (!sections.includes(document.activeElement)) return;
     lastFocused = null;
@@ -411,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('wheel', releaseSection, { passive: true });
   window.addEventListener('touchstart', releaseSection, { passive: true });
 
-  // Ссылка на раздел переводит на него и фокус, чтобы Tab продолжал с нового места
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = document.getElementById(link.getAttribute('href').slice(1));
 
@@ -464,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // SPEAKER AVATAR CAROUSEL
 // ============================================
 
-// Порядок случайный при каждой загрузке, поэтому ни один спикер не закреплён на первом месте
+// Random order on every load, so no speaker is always first
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.bento-avatars');
 
@@ -478,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     [avatars[index], avatars[swapIndex]] = [avatars[swapIndex], avatars[index]];
   }
 
-  // С клавиатуры доступен только исходный набор, копии открываются мышью и касанием
+  // Clones are for mouse and touch only
   const cloneSet = () => avatars.map((avatar) => {
     const clone = avatar.cloneNode(true);
 
@@ -487,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return clone;
   });
 
-  // Копии по обе стороны от исходного набора делают цикл бесшовным на карточке любой ширины
+  // Clones on both sides keep the loop seamless at any width
   track.replaceChildren(...cloneSet(), ...avatars, ...cloneSet(), ...cloneSet());
 
   const AUTO_SECONDS_PER_SET = 30;
@@ -511,8 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function render() {
-    // Сдвиг остаётся в пределах одного набора, поэтому цикл бесшовный в обе стороны.
-    // При фокусе с клавиатуры выбранная аватарка должна оставаться на экране.
+    // Wrap within one set, except while a keyboard-focused avatar must stay visible
     if (!hasKeyboardFocus) offset = ((offset % setWidth) - setWidth) % setWidth;
     track.style.transform = `translate3d(${offset}px, 0, 0)`;
   }
@@ -617,7 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.pointerType === 'mouse') isHovered = false;
   });
 
-  // Выбранная с клавиатуры аватарка сдвигается в видимую часть карусели
   carousel.addEventListener('focusin', (event) => {
     if (!event.target.matches(':focus-visible')) return;
 
@@ -658,7 +642,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // RESEARCH CHART ANIMATION
 // ============================================
 
-// Случайный столбик растёт или опускается, при этом график сохраняет общую форму
 document.addEventListener('DOMContentLoaded', () => {
   const chart = document.querySelector('.bento-bars');
 
@@ -737,21 +720,24 @@ document.addEventListener('DOMContentLoaded', () => {
     phone: 'Проверьте номер телефона, например +7\u00A0777\u00A0000\u201100\u201100.',
     suggestion: 'Возможно, вы имели в\u00A0виду '
   };
-  // Те же правила, что в apps-script/Code.gs
+  // Keep in sync with apps-script/Code.gs
   const EMAIL_LOCAL_PATTERN = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+$/i;
   const EMAIL_LABEL_PATTERN = /^(?!-)[\p{L}\p{N}-]{1,63}(?<!-)$/u;
   const EMAIL_TLD_PATTERN = /^(?:\p{L}{2,}|xn--[a-z0-9-]+)$/iu;
-  // Опечатки ищутся только в популярных почтовых доменах: корпоративные адреса не трогаем
+  // Typo suggestions cover popular mail providers only
   const EMAIL_DOMAINS = {
     suggested: ['gmail.com', 'mail.ru', 'yandex.ru', 'yandex.kz', 'inbox.ru', 'outlook.com', 'hotmail.com', 'icloud.com', 'yahoo.com', 'rambler.ru'],
     other: ['ymail.com', 'mail.com', 'email.com', 'googlemail.com', 'mail.kz', 'list.ru', 'bk.ru', 'ya.ru', 'me.com', 'live.com', 'proton.me']
   };
-  // Те же правила, что в apps-script/Code.gs
   const PHONE_PATTERN = /^\+?[\d\s()-]+$/;
   const PHONE_DIGITS = { min: 10, max: 15 };
 
   const endpoint = form.dataset.endpoint || '';
-  const siteKey = form.dataset.turnstileSitekey || '';
+  // Cloudflare's test key on localhost; Apps Script rejects its tokens
+  const TURNSTILE_TEST_SITEKEY = '1x00000000000000000000AA';
+  const isLocalPreview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+  const siteKey = isLocalPreview ? TURNSTILE_TEST_SITEKEY : form.dataset.turnstileSitekey || '';
+  const turnstileContainer = document.getElementById('turnstile-widget');
   const submitButton = document.getElementById('registration-submit');
   const statusElement = document.getElementById('registration-status');
   const statusBox = statusElement.parentElement;
@@ -777,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Текст остаётся на экране, пока блок плавно сворачивается
+    // Keep the text while the box collapses
     statusBox.classList.remove('is-visible');
     statusClearTimer = setTimeout(() => {
       statusElement.textContent = '';
@@ -796,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
       EMAIL_TLD_PATTERN.test(labels[labels.length - 1]);
   }
 
-  // Расстояние Дамерау — Левенштейна: перестановка соседних букв считается одной ошибкой
+  // Optimal string alignment distance: a swap of neighbours counts as one edit
   function getEditDistance(a, b) {
     const rows = Array.from({ length: a.length + 1 }, (_, i) => [i, ...new Array(b.length).fill(0)]);
 
@@ -814,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return rows[a.length][b.length];
   }
 
-  // gmial.com → gmail.com. Для коротких доменов допускается одна ошибка, для длинных две.
+  // Short domains allow one edit, long ones two
   function suggestEmail(email) {
     const at = email.lastIndexOf('@');
     const domain = email.slice(at + 1).toLowerCase();
@@ -828,10 +814,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return match ? `${email.slice(0, at)}@${match}` : '';
   }
 
-  // Номера с кодом +7 приводятся к виду +7 777 000-00-00, другие коды остаются как введены.
-  // Первая 8 или 7 без плюса — привычный префикс, вместо неё подставляется +7.
+  // Formats +7 numbers as +7 777 000-00-00; a leading 8 or 7 becomes +7
   function formatPhone(value) {
-    // Пробел в конце не срезается: он нужен, пока номер с другим кодом набирается
+    // Keep a trailing space while an international number is typed
     const raw = value.trimStart();
     const digits = raw.replace(/\D/g, '');
     const hasPlus = raw.startsWith('+');
@@ -853,7 +838,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return groups.reduce((phone, [separator, group]) => (group ? `${phone}${separator}${group}` : phone), '+7');
   }
 
-  // «+7» без номера остаётся от подстановки и считается пустым полем
+  // A bare prefix counts as empty
   function readPhone() {
     const phone = phoneInput.value.trim();
     return phone === '+' || phone === '+7' ? '' : phone;
@@ -867,8 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return digits >= PHONE_DIGITS.min && digits <= PHONE_DIGITS.max;
   }
 
-  // Номер форматируется при наборе в конце поля. Удаление и правка в середине не трогают
-  // курсор, полный формат применяется при уходе из поля.
+  // Format only while typing at the end, so the caret never jumps
   function handlePhoneInput(event) {
     const type = event.inputType || '';
     const isDeleting = type.startsWith('delete');
@@ -888,7 +872,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showContactNote();
   }
 
-  // Регистр важен только до @, домен приводится к строчным буквам
   function handleEmailBlur() {
     const email = emailInput.value.trim();
     const at = email.lastIndexOf('@');
@@ -898,7 +881,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showContactNote();
   }
 
-  // Браузер показывает эти подсказки при отправке так же, как для обязательных полей
   function updateContactValidity() {
     const email = emailInput.value.trim();
     const phone = readPhone();
@@ -924,7 +906,6 @@ document.addEventListener('DOMContentLoaded', () => {
     emailInput.focus();
   }
 
-  // Ошибки показываются после ухода из поля, а не во время набора
   function showContactNote() {
     const email = emailInput.value.trim();
     const phone = readPhone();
@@ -940,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
     emailInput.setAttribute('aria-invalid', String(isEmailWrong));
     phoneInput.setAttribute('aria-invalid', String(isPhoneWrong));
 
-    // Та же подсказка не перерисовывается: иначе клик по кнопке исправления потерялся бы
+    // Re-rendering the same note would swallow a click on the fix button
     if (!contactNote.hidden && contactNote.dataset.key === key) return;
     hideContactNote();
     contactNote.dataset.key = key;
@@ -979,21 +960,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showTurnstile(isShown) {
+    turnstileContainer.classList.toggle('is-shown', isShown);
+  }
+
   function renderTurnstile() {
-    widgetId = window.turnstile.render('#turnstile-widget', {
+    widgetId = window.turnstile.render(turnstileContainer, {
       sitekey: siteKey,
       action: 'register',
       language: 'ru',
       theme: 'dark',
+      appearance: 'interaction-only',
+      size: form.clientWidth >= 300 ? 'flexible' : 'compact',
       callback: (token) => {
         turnstileToken = token;
+        showTurnstile(false);
         if (isCaptchaStatus) setStatus('');
       },
       'expired-callback': () => {
         turnstileToken = '';
       },
+      'before-interactive-callback': () => showTurnstile(true),
+      'after-interactive-callback': () => showTurnstile(false),
       'error-callback': () => {
         turnstileToken = '';
+        showTurnstile(true);
         setCaptchaStatus(ERROR_MESSAGES.captcha);
       }
     });
@@ -1015,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
     try {
-      // text/plain не вызывает CORS preflight, который Apps Script не обрабатывает
+      // text/plain avoids a CORS preflight, which Apps Script cannot answer
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -1084,6 +1075,28 @@ document.addEventListener('DOMContentLoaded', () => {
     isSubmitting = false;
     submitButton.disabled = false;
     resetTurnstile();
+  });
+
+  // Safari and embedded browsers do not move focus to buttons, so release the field explicitly
+  function getFocusedCell() {
+    const active = document.activeElement;
+    return active instanceof HTMLInputElement && form.contains(active) ? active.closest('.form-cell') : null;
+  }
+
+  // WebKit keeps the selection, and its caret, in a blurred field
+  function releaseField() {
+    document.activeElement.blur();
+    window.getSelection()?.removeAllRanges();
+  }
+
+  document.addEventListener('pointerdown', (event) => {
+    const cell = getFocusedCell();
+
+    if (cell && !cell.contains(event.target)) releaseField();
+  });
+
+  window.addEventListener('blur', () => {
+    if (getFocusedCell()) releaseField();
   });
 
   emailInput.addEventListener('input', () => {

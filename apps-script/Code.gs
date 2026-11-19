@@ -1,18 +1,17 @@
 /**
- * Приём заявок на встречу ProHunters 2026 в закрытую Google Таблицу.
- *
- * Скрипт привязан к таблице и развёрнут как веб-приложение:
- * выполнение от имени владельца, доступ для всех (анонимная отправка формы).
- * Он только записывает заявки и никогда не возвращает данные таблицы.
- *
- * Script Properties (Настройки проекта → Свойства скрипта):
- *   TURNSTILE_SECRET   секретный ключ Cloudflare Turnstile, в репозитории не хранится
- *   ALLOWED_HOSTNAMES  домены формы через запятую, по умолчанию 2026.prohunters.kz
+  * Accepts ProHunters 2026 registrations into a private Google Sheet.
+  *
+  * Deployed as a web app bound to the sheet: runs as the owner, open to anyone.
+  * It only appends rows and never returns sheet data.
+  *
+  * Script Properties:
+  *   TURNSTILE_SECRET   Cloudflare Turnstile secret key, never stored in the repository
+  *   ALLOWED_HOSTNAMES  comma-separated form hostnames, defaults to 2026.prohunters.kz
  */
 
 var CONFIG = {
   SHEET_NAME: 'Регистрации',
-  // Новые столбцы добавляются в конец, чтобы не сдвигать уже записанные строки.
+  // New columns go last so existing rows keep their positions.
   HEADERS: ['Дата и время', 'Имя', 'Фамилия', 'Компания', 'Согласие', 'Email', 'Телефон'],
   TIME_ZONE: 'Asia/Almaty',
   CLOSES_AT_MS: Date.parse('2026-12-11T09:15:00+05:00'),
@@ -21,7 +20,7 @@ var CONFIG = {
   MAX_REGISTRATIONS: 1500,
   LIMITS: { firstName: 80, lastName: 80, company: 160, email: 254, phone: 25 },
   PHONE_DIGITS: { min: 10, max: 15 },
-  // Высокий лимит до капчи бережёт квоты, низкий после капчи ограничивает записи.
+  // The loose limit before the captcha saves quota; the strict one after it limits writes.
   RATE_LIMITS: {
     incoming: [{ seconds: 60, max: 60 }, { seconds: 3600, max: 600 }],
     accepted: [{ seconds: 60, max: 20 }, { seconds: 3600, max: 200 }]
@@ -34,7 +33,7 @@ var CONFIG = {
 
 var NAME_PATTERN = /^\p{L}[\p{L}\p{M} .'’-]*$/u;
 var COMPANY_PATTERN = /^[\p{L}\p{N}«"'“„(][\p{L}\p{M}\p{N} .,'’"«»“”„&()+\/№#:!-]*$/u;
-// Те же правила проверки email и телефона, что в js/app.js.
+// Keep in sync with js/app.js.
 var EMAIL_LOCAL_PATTERN = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+$/i;
 var EMAIL_LABEL_PATTERN = /^(?!-)[\p{L}\p{N}-]{1,63}(?<!-)$/u;
 var EMAIL_TLD_PATTERN = /^(?:\p{L}{2,}|xn--[a-z0-9-]+)$/iu;
@@ -49,7 +48,7 @@ function doPost(e) {
   try {
     return jsonResponse_(handleRegistration_(e));
   } catch (error) {
-    // В логи попадает только тип ошибки, без персональных данных.
+    // Log only the error type, never personal data.
     console.error('registration_failed', error && error.name);
     return jsonResponse_({ ok: false, code: 'server_error' });
   }
@@ -59,7 +58,7 @@ function handleRegistration_(e) {
   var body = parseBody_(e);
   if (!body) return { ok: false, code: 'invalid' };
 
-  // Боту отвечаем успехом, чтобы он не узнал о срабатывании ловушки.
+  // Bots get a success response so they cannot detect the trap.
   if (body.website) return { ok: true };
 
   if (Date.now() >= CONFIG.CLOSES_AT_MS) return { ok: false, code: 'closed' };
@@ -97,7 +96,6 @@ function validateGuest_(body) {
   if (!NAME_PATTERN.test(firstName) || !NAME_PATTERN.test(lastName)) return null;
   if (!COMPANY_PATTERN.test(company)) return null;
 
-  // Нужен хотя бы один контакт: email, телефон или оба.
   var email = cleanOptionalText_(body.email, CONFIG.LIMITS.email);
   var phone = cleanOptionalText_(body.phone, CONFIG.LIMITS.phone);
 
@@ -109,7 +107,7 @@ function validateGuest_(body) {
   return { firstName: firstName, lastName: lastName, company: company, email: email, phone: phone };
 }
 
-// Пустое или отсутствующее значение даёт '', слишком длинное или не строка даёт null.
+// '' for an empty or missing value, null for an invalid one.
 function cleanOptionalText_(value, maxLength) {
   if (value === undefined || value === null || value === '') return '';
   if (typeof value !== 'string') return null;
@@ -130,7 +128,7 @@ function isValidEmail_(email) {
     EMAIL_TLD_PATTERN.test(labels[labels.length - 1]);
 }
 
-// Код +7 (Казахстан и Россия) даёт ровно 11 цифр, для других стран от 10 до 15.
+// +7 numbers (Kazakhstan, Russia) have exactly 11 digits.
 function isValidPhone_(phone) {
   var digits = phone.replace(/\D/g, '').length;
 
@@ -179,7 +177,7 @@ function verifyTurnstile_(token) {
   var properties = PropertiesService.getScriptProperties();
   var secret = properties.getProperty('TURNSTILE_SECRET');
 
-  // Без секрета форма закрыта: проверку нельзя пропускать.
+  // Without a secret the form stays closed.
   if (!secret) return false;
   if (typeof token !== 'string' || !token || token.length > CONFIG.MAX_TOKEN_LENGTH) return false;
 
@@ -209,7 +207,7 @@ function saveGuest_(guest) {
     var sheet = getSheet_();
     var guestCount = Math.max(sheet.getLastRow() - 1, 0);
 
-    // Повторная заявка считается успешной, новая строка не создаётся.
+    // A repeated registration succeeds without adding a row.
     if (guestCount > 0 && isDuplicate_(sheet, guest, guestCount)) return { ok: true };
     if (guestCount >= CONFIG.MAX_REGISTRATIONS) return { ok: false, code: 'full' };
 
@@ -242,7 +240,7 @@ function getSheet_() {
     sheet.setFrozenRows(1);
   }
 
-  // Лист, созданный до появления новых столбцов, получает недостающие заголовки.
+  // Sheets created before the contact columns get the missing headers.
   if (sheet.getLastColumn() < CONFIG.HEADERS.length) {
     sheet.getRange(1, 1, 1, CONFIG.HEADERS.length)
       .setValues([CONFIG.HEADERS])
@@ -251,7 +249,7 @@ function getSheet_() {
   return sheet;
 }
 
-// Заявка с другим контактом сохраняется, чтобы исправленный email или телефон не потерялся.
+// Contacts are part of the key so a corrected email or phone is not lost.
 function isDuplicate_(sheet, guest, guestCount) {
   var expected = guestKey_([guest.firstName, guest.lastName, guest.company, guest.email, guest.phone]);
   var rows = sheet.getRange(2, 1, guestCount, CONFIG.HEADERS.length).getDisplayValues();

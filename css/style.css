@@ -9,7 +9,7 @@
    ========================================================================== */
 
 :root {
-  /* Снег и звёздное небо: none — выключены, block — включены */
+  /* Snow and stars: none or block */
   --winter-effects-display: none;
 
   /* Color Palette - ProHunters Brand Colors */
@@ -217,7 +217,7 @@ body {
   padding: 0 var(--spacing-md);
 }
 
-/* Tab переключает разделы целиком, их положение показывает прокрутка, а не рамка */
+/* Section focus is shown by scrolling, not an outline */
 [data-nav-section]:focus {
   outline: none;
 }
@@ -898,7 +898,7 @@ body {
   vector-effect: non-scaling-stroke;
 }
 
-/* Без анимации видны четыре кольца радиусом 44, 78, 112 и 138 px */
+/* Without animation, four rings show at radii 44, 78, 112 and 138 px */
 .bento-arcs circle:nth-child(1) { transform: scale(0.256); }
 .bento-arcs circle:nth-child(2) { transform: scale(0.453); }
 .bento-arcs circle:nth-child(3) { transform: scale(0.651); }
@@ -1514,7 +1514,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .venue-info {
@@ -1603,15 +1603,29 @@ body {
   border: 1px solid var(--glass-border-medium);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border-radius: 24px;
-  height: 450px;
+  position: relative;
+  min-height: 320px;
   overflow: hidden;
+  --map-crop-top: 175px;
+  --map-crop-left: 56px;
 }
 
+/* Clipped to hide Google's place card and layer switcher; ll in the URL offsets the crop */
 .venue-map iframe {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: calc(8px - var(--map-crop-top));
+  left: calc(8px - var(--map-crop-left));
+  width: calc(100% - 16px + var(--map-crop-left));
+  height: calc(100% - 16px + var(--map-crop-top));
   border: none;
-  border-radius: var(--radius-md);
+  clip-path: inset(var(--map-crop-top) 0 0 var(--map-crop-left) round var(--radius-md));
+}
+
+/* Google's attribution starts near the left edge on the narrowest maps, so keep it whole there */
+@media (max-width: 359px) {
+  .venue-map {
+    --map-crop-left: 0px;
+  }
 }
 
 /* ==========================================================================
@@ -1619,6 +1633,8 @@ body {
    ========================================================================== */
 
 .cta-section {
+  /* Shared by the form, the contact note, and the footer */
+  --cta-panel-width: 560px;
   padding: 96px 0 0 0;
   min-height: 50vh;
   background: linear-gradient(
@@ -1743,8 +1759,8 @@ body {
   align-items: center;
   gap: 14px;
   width: 100%;
-  max-width: 560px;
-  margin: 32px auto 0;
+  max-width: var(--cta-panel-width);
+  margin: 64px auto 0;
   padding: 8px 24px 8px 8px;
   text-align: left;
 }
@@ -1812,7 +1828,7 @@ body {
    ========================================================================== */
 
 .footer {
-  margin-top: 56px;
+  margin-top: 16px;
   padding: 0;
   position: relative;
   overflow: hidden;
@@ -1866,7 +1882,7 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  max-width: 560px;
+  max-width: var(--cta-panel-width);
   margin: 0 auto;
   padding: 24px 32px;
   position: relative;
@@ -1890,7 +1906,7 @@ body {
   z-index: -1;
 }
 
-/* Верх логотипа совпадает с верхом заглавных букв в первой строке текста */
+/* Aligns the logo top with the cap height of the first text line */
 .footer-logo {
   display: flex;
   flex: none;
@@ -1959,8 +1975,7 @@ body {
   display: block;
 }
 
-/* Проявляется только затемнение. Прозрачность на самом .speaker-modal отключала бы
-   размытие фона, и сквозь карточку на мгновение была бы видна страница. */
+/* Fade the overlay only: opacity on .speaker-modal would disable its backdrop blur */
 .speaker-modal.active .modal-overlay {
   animation: fadeIn var(--duration-normal) ease;
 }
@@ -2045,7 +2060,7 @@ body {
   transition: opacity var(--duration-fast) ease;
 }
 
-/* Фото появляется после загрузки, а не рывком и не с портретом предыдущего спикера */
+/* Hidden until loaded, so the previous speaker's photo never flashes */
 .modal-photo img:not(.is-loaded) {
   opacity: 0;
 }
@@ -2490,7 +2505,7 @@ body {
   }
 }
 
-/* Карточка диалога въезжает непрозрачной, чтобы сквозь неё не просвечивала страница */
+/* No opacity, so the page never shows through the card */
 @keyframes slideUp {
   from {
     transform: translateY(50px);
@@ -3284,70 +3299,168 @@ body {
 
 /* Registration */
 .registration-card {
-  max-width: 560px;
+  --form-field-radius: 14px;
+  --form-field-fill: rgba(255, 255, 255, 0.07);
+  --form-field-border: rgba(255, 255, 255, 0.16);
+  --form-label: rgba(255, 255, 255, 0.55);
+  --form-muted: rgba(255, 255, 255, 0.7);
+  --form-error: #ff9b9b;
+  --form-control-height: 52px;
+  max-width: var(--cta-panel-width);
   margin: 0 auto;
-  padding: 32px;
-  border: 1px solid var(--glass-border-subtle);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 60px rgba(0, 0, 0, 0.22);
+  font-family: var(--font-display);
   text-align: left;
+  -webkit-font-smoothing: antialiased;
 }
 
-.form-row {
+.form-group {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px;
 }
 
-.form-field {
-  margin-bottom: 18px;
+.form-cell {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--form-field-border);
+  border-radius: var(--form-field-radius);
+  background-color: var(--form-field-fill);
+  transition: border-color var(--duration-fast) ease, background-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 }
 
-.form-field label {
+.form-cell--wide {
+  grid-column: 1 / -1;
+}
+
+@media (hover: hover) {
+  .form-cell:hover {
+    border-color: rgba(255, 255, 255, 0.26);
+  }
+}
+
+.form-cell label {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  left: 16px;
+  overflow: hidden;
+  font-size: 1.0625rem;
+  line-height: 56px;
+  letter-spacing: -0.01em;
+  color: var(--form-label);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transform-origin: left top;
+  pointer-events: none;
+  transition: transform var(--duration-fast) var(--easing-smooth), color var(--duration-fast) ease;
+}
+
+.form-cell:has(input:focus, input:not(:placeholder-shown)) label {
+  transform: translateY(-8px) scale(0.72);
+}
+
+/* Separate rules: an unknown selector inside :has() would drop the whole rule */
+.form-cell:has(input:autofill) label {
+  transform: translateY(-8px) scale(0.72);
+}
+
+.form-cell:has(input:-webkit-autofill) label {
+  transform: translateY(-8px) scale(0.72);
+}
+
+.form-cell input {
   display: block;
-  margin-bottom: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-white);
-}
-
-.form-field label span {
-  color: var(--color-gold);
-}
-
-.form-field input {
   width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: var(--radius-xs);
-  background: var(--color-white);
+  height: 56px;
+  margin: 0;
+  padding: 23px 16px 5px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
   font: inherit;
-  font-size: 1rem;
-  color: var(--color-navy);
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  caret-color: var(--color-gold-light);
+  outline: none;
 }
 
-.form-field input::placeholder {
-  color: #6e6e73;
+/* WebKit keeps painting the caret in a blurred field */
+.form-cell input:not(:focus) {
+  caret-color: transparent;
+}
+
+.form-cell input::placeholder {
+  color: transparent;
   opacity: 1;
 }
 
-.form-field input:focus-visible,
-.form-consent input:focus-visible {
-  outline: 3px solid var(--color-gold);
-  outline-offset: 2px;
+.form-cell input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+/* Keeps Chrome autofill from repainting the field */
+.form-cell input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-white);
+  caret-color: var(--color-gold-light);
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.form-cell:has(input[aria-invalid="true"]) {
+  border-color: var(--form-error);
+  box-shadow: 0 0 0 3px rgba(255, 155, 155, 0.18);
+}
+
+.form-cell:has(input[aria-invalid="true"]) label {
+  color: #ffc9c9;
+}
+
+.form-cell:has(input:focus) {
+  border-color: var(--color-gold-light);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(232, 213, 168, 0.22);
+}
+
+.form-cell:has(input:focus) label {
+  color: var(--form-muted);
+}
+
+@media (max-width: 480px) {
+  .registration-card {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .form-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-cell,
+  .form-cell label {
+    transition: none;
+  }
 }
 
 .cta-content .form-note {
-  margin: -6px 0 20px;
+  margin: 10px 4px 0;
   font-size: 0.8125rem;
-  line-height: 1.5;
+  line-height: 1.45;
   color: #ffc9c9;
   text-shadow: none;
 }
 
 .cta-content .form-note--suggestion {
-  color: var(--white-90);
+  color: var(--form-muted);
 }
 
 .form-note__fix {
@@ -3366,18 +3479,6 @@ body {
   outline-offset: 2px;
 }
 
-.form-field input[aria-invalid="true"] {
-  border-color: #ff8a8a;
-  box-shadow: 0 0 0 1px #ff8a8a;
-}
-
-@media (max-width: 480px) {
-  .form-row--contacts {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 0;
-  }
-}
-
 .form-trap {
   position: absolute;
   left: -9999px;
@@ -3388,91 +3489,131 @@ body {
 
 .form-consent {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 18px 4px 22px;
   font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--white-90);
+  line-height: 1.45;
+  color: var(--form-muted);
   cursor: pointer;
 }
 
 .form-consent input {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  flex: none;
+  width: 22px;
+  height: 22px;
   margin: 0;
-  accent-color: var(--color-gold);
-}
-
-.form-turnstile:not(:empty) {
-  margin-bottom: 20px;
-}
-
-.form-submit {
-  width: 100%;
-  border: 0;
-  font: inherit;
-  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: transparent center / 12px no-repeat;
+  -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
+  transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.form-consent input:checked {
+  border-color: var(--color-gold-light);
+  background-color: var(--color-gold-light);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6l4.5-5' fill='none' stroke='%231a2332' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.form-consent input:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.form-turnstile {
+  display: flex;
+  justify-content: center;
+}
+
+.form-turnstile.is-shown {
+  margin: -6px 0 22px;
+  border-radius: 12px;
+  overflow: clip;
 }
 
 .form-actions {
   display: flex;
-  align-items: stretch;
-  gap: 12px;
+  gap: 10px;
+  align-items: center;
 }
 
-.cta-content .registration-form .form-submit {
-  flex: 1;
-  width: auto;
-  min-width: 0;
-  max-width: none;
+.form-submit,
+.form-calendar {
+  position: relative;
+  height: var(--form-control-height);
   margin: 0;
-  padding-right: 8px;
-  padding-left: 8px;
-  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.08), 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  transition: transform var(--duration-normal) var(--easing-smooth), background-color var(--duration-normal) var(--easing-smooth), border-color var(--duration-normal) var(--easing-smooth);
 }
 
-.cta-content .registration-form .form-calendar {
-  --calendar-size: 62px;
+.form-submit {
+  flex: 1;
+  min-width: 0;
+  padding: 0 20px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.form-calendar {
+  --calendar-size: var(--form-control-height);
   display: flex;
   flex: none;
   align-items: center;
   justify-content: center;
   width: var(--calendar-size);
-  max-width: none;
-  margin: 0;
   padding: 0;
-  border: 0;
+  text-decoration: none;
 }
 
-@media (max-width: 768px) {
-  .cta-content .registration-form .form-calendar {
-    --calendar-size: 57.6px;
+.form-calendar svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (hover: hover) {
+  .form-submit:not(:disabled):hover,
+  .form-calendar:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    background-color: rgba(255, 255, 255, 0.22);
+  }
+
+  .form-submit:not(:disabled):hover {
+    transform: scale(1.015);
   }
 }
 
-@media (max-width: 480px) {
-  .cta-content .registration-form .form-calendar {
-    --calendar-size: 56px;
-  }
+.form-submit:not(:disabled):active,
+.form-calendar:active {
+  transform: scale(0.98);
+}
+
+.form-submit:focus-visible,
+.form-calendar:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.form-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 @media (max-width: 375px) {
-  .form-actions {
-    gap: 8px;
+  .form-submit {
+    padding: 0 12px;
+    font-size: 1rem;
   }
-
-  .cta-content .registration-form .form-submit {
-    padding-right: 4px;
-    padding-left: 4px;
-  }
-}
-
-.form-calendar:focus-visible {
-  outline: 3px solid var(--color-gold);
-  outline-offset: 2px;
 }
 
 .form-calendar__tooltip {
@@ -3480,7 +3621,7 @@ body {
   right: 0;
   bottom: calc(100% + 10px);
   padding: 7px 12px;
-  border-radius: var(--radius-xs);
+  border-radius: 10px;
   background: rgba(16, 18, 28, 0.94);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   font-size: 0.8125rem;
@@ -3517,14 +3658,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .form-submit,
+  .form-calendar,
   .form-calendar__tooltip {
     transition: none;
   }
-}
-
-.form-submit:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
 }
 
 .form-status-box {
@@ -3551,10 +3689,11 @@ body {
   min-height: 0;
   margin: 0;
   overflow: hidden;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   text-align: center;
-  color: var(--white-90);
+  color: var(--form-muted);
+  text-shadow: none;
 }
 
 .cta-content .form-status--error {
@@ -3562,25 +3701,34 @@ body {
 }
 
 .registration-success {
+  padding: 12px 8px;
   text-align: center;
   outline: none;
 }
 
 .registration-success h3 {
-  color: var(--color-gold);
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-gold-light);
 }
 
 .cta-content .registration-success p {
   margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--form-muted);
 }
 
 .calendar-link {
   display: block;
   width: fit-content;
-  margin: 16px auto 0;
-  padding: 10px 4px;
+  margin: 14px auto 0;
+  padding: 8px 4px;
   font-weight: 600;
-  color: var(--color-gold);
+  color: var(--color-gold-light);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -3653,10 +3801,6 @@ body {
 
   .modal-initials {
     height: 280px;
-  }
-
-  .registration-card {
-    padding: 22px 18px;
   }
 }
 

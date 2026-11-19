@@ -12,6 +12,8 @@ The repository and every published file are public. Keep secrets in the Apps Scr
 
 The Content Security Policy in `index.html` blocks the dev server's WebSocket, so `npm start` serves the page without live reload. Refresh manually.
 
+On `localhost` and `127.0.0.1` the form uses Cloudflare's test Turnstile key, which always passes in the browser. Apps Script rejects its token, so a local submission never reaches the sheet.
+
 There is no test suite. Verify changes in a browser at widths from 320 to 1440 px, including the speaker dialogs.
 
 ## Content that lives in several places
