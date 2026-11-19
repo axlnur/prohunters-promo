@@ -21,6 +21,8 @@ There is no test suite. Verify changes in a browser at widths from 320 to 1440 p
 Update every location when a fact changes:
 
 - **Event date, time, venue:** `index.html` (body and meta tags), `prohunters.ics`, `llms.txt`
+- **Registration deadline:** `data-closes-at` on `#registration-form` and `CLOSES_AT_MS` in `apps-script/Code.gs`, which must match
+- **Post-event page:** `data-shows-from` on `#finale`; from that moment only the finale screen is shown
 - **Program:** `index.html`, `llms.txt`
 - **Speaker name or role:** cards and program in `index.html`, `speakersData` in `js/app.js`, `llms.txt`
 - **Speaker bio or topic:** `speakersData` in `js/app.js`

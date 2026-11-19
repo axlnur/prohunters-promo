@@ -263,6 +263,19 @@ modal.querySelector('.modal-content').addEventListener('click', (e) => {
 });
 
 // ============================================
+// EVENT FINISHED
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  const finale = document.getElementById('finale');
+  const showsFrom = finale ? Date.parse(finale.dataset.showsFrom || '') : NaN;
+
+  if (!(Date.now() >= showsFrom)) return;
+  document.documentElement.classList.add('is-event-finished');
+  finale.hidden = false;
+});
+
+// ============================================
 // SECTION KEYBOARD NAVIGATION
 // ============================================
 
@@ -270,7 +283,7 @@ modal.querySelector('.modal-content').addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   const sections = [...document.querySelectorAll('[data-nav-section]')];
 
-  if (!sections.length) return;
+  if (!sections.length || document.documentElement.classList.contains('is-event-finished')) return;
 
   const ITEM_SELECTOR = 'a[href], button, input, select, textarea, iframe, [tabindex]';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -745,6 +758,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailInput = document.getElementById('reg-email');
   const phoneInput = document.getElementById('reg-phone');
   const contactNote = document.getElementById('reg-contact-note');
+  const closedPanel = document.getElementById('registration-closed');
+  const heroCta = document.querySelector('.hero-actions .cta-button');
+  const heroClosed = document.getElementById('hero-closed');
+  const formHint = document.querySelector('.cta-form-hint');
+  const closesAt = Date.parse(form.dataset.closesAt || '');
 
   let turnstileToken = '';
   let widgetId = null;
@@ -948,6 +966,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!contactNote.hidden && !contactNote.contains(document.activeElement)) hideContactNote();
   }
 
+  function showClosed() {
+    form.hidden = true;
+    if (successPanel.hidden) closedPanel.hidden = false;
+    if (heroCta) heroCta.hidden = true;
+    if (heroClosed) heroClosed.hidden = false;
+    if (formHint) formHint.hidden = true;
+  }
+
   function setCaptchaStatus(message) {
     setStatus(message, true);
     isCaptchaStatus = true;
@@ -1067,6 +1093,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      if (result.code === 'closed') {
+        showClosed();
+        return;
+      }
+
       setStatus(ERROR_MESSAGES[result.code] || ERROR_MESSAGES.default, true);
     } catch (error) {
       setStatus(ERROR_MESSAGES.default, true);
@@ -1107,6 +1138,15 @@ document.addEventListener('DOMContentLoaded', () => {
   phoneInput.addEventListener('input', handlePhoneInput);
   phoneInput.addEventListener('blur', handlePhoneBlur);
   updateContactValidity();
+
+  const msUntilClose = closesAt - Date.now();
+
+  if (msUntilClose <= 0) {
+    showClosed();
+    return;
+  }
+  // setTimeout cannot wait longer than about 24.8 days
+  if (msUntilClose < 2 ** 31) setTimeout(showClosed, msUntilClose);
 
   if (ENDPOINT_PATTERN.test(endpoint) && siteKey) {
     loadTurnstile();
