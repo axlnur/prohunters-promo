@@ -3741,6 +3741,35 @@ body {
   outline: none;
 }
 
+.registration-success__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  border: 1px solid rgba(232, 213, 168, 0.45);
+  border-radius: 50%;
+  background: rgba(232, 213, 168, 0.14);
+  color: var(--color-gold-light);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .registration-success__icon {
+    animation: success-pop 0.45s var(--easing-smooth) both;
+  }
+}
+
+@keyframes success-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .registration-success h3 {
   margin: 0 0 8px;
   font-family: var(--font-display);

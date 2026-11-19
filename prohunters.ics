@@ -14,26 +14,26 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:prohunters2026@prohunters.kz
-DTSTAMP:20261118T134756Z
+DTSTAMP:20261119T112812Z
 ORGANIZER;CN="Aida Shagiyeva":MAILTO:aida@prohunters.kz
 DTSTART;TZID=Asia/Almaty:20261211T091500
 DTEND;TZID=Asia/Almaty:20261211T133000
 SUMMARY:ProHunters 2026: Сильная карьера. Живой чело
  век
-LOCATION:Holiday Inn Almaty\, ул. Тимирязева\, 2Д\, Алмат
- ы\, Казахстан
+LOCATION:Holiday Inn Almaty\, ул. Тимирязева 2Д\, Алматы
+ \, Казахстан
 URL:https://2026.prohunters.kz
 DESCRIPTION:Закрытая встреча ProHunters: итоги иссл
  едования «Рейтинг работодателей Казахс
  тана 2026»\, дискуссия о лидерстве и церемо
  ния награждения.\n\nСбор гостей с 09:15\, отк
  рытие встречи в 10:00.\n\nМесто: Holiday Inn Almaty\, у
- л. Тимирязева\, 2Д\, Алматы\n\nОткрыть на ка
- рте:\nhttps://www.google.com/maps/search/?api=1&query=Holiday+Inn+Almat
- y+Timiryazev+2D
+ л. Тимирязева 2Д\, Алматы\n\nОткрыть на кар
+ те:\nhttps://www.google.com/maps/search/?api=1&query=Holiday+Inn+Almaty+
+ Timiryazev+2D
 STATUS:CONFIRMED
 PRIORITY:1
-SEQUENCE:0
+SEQUENCE:1
 BEGIN:VALARM
 TRIGGER:-P1D
 DESCRIPTION:Напоминание о встрече ProHunters
