@@ -3542,15 +3542,29 @@ body {
   outline-offset: 3px;
 }
 
+/* Shrinks to the widget so it sits at the form's left edge; no radius, it would cut the widget's border */
 .form-turnstile {
-  display: flex;
-  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  max-height: 160px;
+  overflow: clip;
+  transition: max-height var(--duration-normal) ease, margin var(--duration-normal) ease, opacity var(--duration-normal) ease;
+}
+
+/* Turnstile keeps its "Success" badge on screen; collapse it once the check has passed */
+.form-turnstile:not(.is-shown) {
+  max-height: 0;
+  opacity: 0;
 }
 
 .form-turnstile.is-shown {
-  margin: -6px 0 22px;
-  border-radius: 12px;
-  overflow: clip;
+  margin: 0 0 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-turnstile {
+    transition: none;
+  }
 }
 
 .form-actions {

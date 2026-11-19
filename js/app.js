@@ -727,6 +727,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const CONTACT_REQUIRED = 'Укажите email или\u00A0телефон.';
   const PHONE_INVALID = 'Проверьте номер телефона.';
+  const CAPTCHA_TIMEOUT = 'Время на\u00A0проверку истекло. Отметьте галочку ещё\u00A0раз.';
+  const CAPTCHA_REQUIRED = 'Сначала отметьте галочку над кнопкой.';
+  const CAPTCHA_PENDING = 'Подождите пару секунд: идёт проверка безопасности.';
+  const TURNSTILE_SUCCESS_MS = 1200;
   const EMAIL_INVALID = 'Проверьте адрес email.';
   const NOTES = {
     email: 'Проверьте адрес email, например name@company.kz.',
@@ -768,6 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let widgetId = null;
   let isSubmitting = false;
   let isCaptchaStatus = false;
+  let turnstileHideTimer = null;
   let statusClearTimer = null;
 
   function setStatus(message, isError = false) {
@@ -980,16 +985,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetTurnstile() {
-    turnstileToken = '';
+    setToken('');
     if (widgetId !== null && window.turnstile) {
       window.turnstile.reset(widgetId);
     }
   }
 
-  function showTurnstile(isShown) {
-    turnstileContainer.classList.toggle('is-shown', isShown);
+  function showTurnstile() {
+    clearTimeout(turnstileHideTimer);
+    turnstileContainer.classList.add('is-shown');
   }
 
+  // Leaves "Success" visible for a moment before the widget collapses
+  function hideTurnstile() {
+    if (!turnstileContainer.classList.contains('is-shown')) return;
+    turnstileHideTimer = setTimeout(() => turnstileContainer.classList.remove('is-shown'), TURNSTILE_SUCCESS_MS);
+  }
+
+  // The button stays disabled until the check passes
+  function setToken(token) {
+    turnstileToken = token;
+    submitButton.disabled = !token || isSubmitting;
+  }
+
+  // The check runs on load; the widget shows only when Cloudflare asks for a click
   function renderTurnstile() {
     widgetId = window.turnstile.render(turnstileContainer, {
       sitekey: siteKey,
@@ -997,24 +1016,21 @@ document.addEventListener('DOMContentLoaded', () => {
       language: 'ru',
       theme: 'dark',
       appearance: 'interaction-only',
-      size: form.clientWidth >= 300 ? 'flexible' : 'compact',
+      size: form.clientWidth >= 300 ? 'normal' : 'compact',
       callback: (token) => {
-        turnstileToken = token;
-        showTurnstile(false);
+        setToken(token);
+        hideTurnstile();
         if (isCaptchaStatus) setStatus('');
       },
-      'expired-callback': () => {
-        turnstileToken = '';
-      },
-      'before-interactive-callback': () => showTurnstile(true),
-      'after-interactive-callback': () => showTurnstile(false),
+      'expired-callback': () => setToken(''),
+      'before-interactive-callback': showTurnstile,
+      'timeout-callback': () => setCaptchaStatus(CAPTCHA_TIMEOUT),
       'error-callback': () => {
-        turnstileToken = '';
-        showTurnstile(true);
+        setToken('');
+        showTurnstile();
         setCaptchaStatus(ERROR_MESSAGES.captcha);
       }
     });
-    submitButton.disabled = false;
     setStatus('');
   }
 
@@ -1066,7 +1082,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!turnstileToken) {
-      setCaptchaStatus('Подождите, идёт проверка безопасности, и\u00A0нажмите кнопку ещё раз.');
+      setCaptchaStatus(turnstileContainer.classList.contains('is-shown') ? CAPTCHA_REQUIRED : CAPTCHA_PENDING);
       return;
     }
 
@@ -1104,7 +1120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     isSubmitting = false;
-    submitButton.disabled = false;
     resetTurnstile();
   });
 

@@ -48,6 +48,7 @@ Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>
 
 - `apps-script/Code.gs` is a copy of the deployed back end. Changes reach production only after a new Apps Script deployment version.
 - The form reads its endpoint and Turnstile site key from `data-*` attributes on `#registration-form`.
+- Turnstile runs on page load and appears only when Cloudflare asks for a click. The submit button stays disabled until the check passes.
 - Requests use `Content-Type: text/plain` because Apps Script cannot answer a CORS preflight.
 - Any new external origin must be added to the Content Security Policy meta tag in `index.html`.
 
