@@ -49,7 +49,7 @@
   </svg>
 
   <!-- Hero Section -->
-  <header class="hero" id="hero">
+  <header class="hero" id="hero" data-nav-section tabindex="-1">
     <div class="hero-background">
       <!-- Снег и звёздное небо включаются переменной --winter-effects-display в css/style.css -->
       <div class="snowflakes" aria-hidden="true">
@@ -116,7 +116,7 @@
   </header>
 
   <!-- Benefits Section -->
-  <section class="benefits" id="benefits">
+  <section class="benefits" id="benefits" data-nav-section tabindex="-1">
     <div class="container">
       <div class="benefits-head">
         <h2 class="benefits-title">
@@ -180,7 +180,7 @@
   </section>
 
   <!-- Idea Section -->
-  <section class="idea" id="idea" aria-labelledby="idea-title">
+  <section class="idea" id="idea" aria-labelledby="idea-title" data-nav-section tabindex="-1">
     <div class="container">
       <h2 class="idea__label" id="idea-title">Идея встречи</h2>
       <figure class="idea__figure">
@@ -188,7 +188,7 @@
           <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z"/>
         </svg>
         <blockquote class="idea__quote">
-          <p>Мы за&nbsp;технологии, за&nbsp;развитие и&nbsp;результат. Важно, чтобы за&nbsp;всем этим <em>не&nbsp;терялся человек</em>.</p>
+          <p>Мы за&nbsp;технологии, развитие, амбиции и&nbsp;результат. Важно, чтобы за&nbsp;всем этим <em>не&nbsp;терялся человек</em>.</p>
         </blockquote>
         <figcaption class="idea__signature">Сильная карьера. Живой человек.</figcaption>
       </figure>
@@ -196,7 +196,7 @@
   </section>
 
   <!-- Program Section -->
-  <section class="program" id="program">
+  <section class="program" id="program" data-nav-section tabindex="-1">
     <div class="container">
       <h2 class="section-title">Программа встречи</h2>
       <div class="timeline">
@@ -358,7 +358,7 @@
   </section>
 
   <!-- Speakers Section -->
-  <section class="speakers-section" id="speakers">
+  <section class="speakers-section" id="speakers" data-nav-section tabindex="-1">
     <div class="container">
       <h2 class="section-title">Спикеры и&nbsp;участники</h2>
       <p class="section-lead">Разный опыт, разные профессии. Один разговор&nbsp;— о&nbsp;карьере, лидерстве и&nbsp;человеке.</p>
@@ -414,7 +414,7 @@
   </section>
 
   <!-- Venue Section -->
-  <section class="venue" id="venue">
+  <section class="venue" id="venue" data-nav-section tabindex="-1">
     <div class="container">
       <h2 class="section-title">Дата и&nbsp;место</h2>
       <div class="venue-content">
@@ -456,7 +456,8 @@
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
+            referrerpolicy="no-referrer-when-downgrade"
+            tabindex="-1">
           </iframe>
         </div>
       </div>
@@ -464,7 +465,7 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section" id="register">
+  <section class="cta-section" id="register" data-nav-section tabindex="-1">
     <!-- Снег и звёздное небо включаются переменной --winter-effects-display в css/style.css -->
     <div class="snowflakes" aria-hidden="true">
       <div class="snowflake">❄</div>
@@ -501,6 +502,18 @@
               <label for="reg-company">Название компании <span aria-hidden="true">*</span></label>
               <input id="reg-company" placeholder="Ваша компания" name="company" type="text" autocomplete="organization" maxlength="160" required>
             </div>
+            <div class="form-row form-row--contacts">
+              <div class="form-field">
+                <label for="reg-email">Email</label>
+                <input id="reg-email" placeholder="name@company.kz" name="email" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="254" aria-describedby="reg-contact-hint reg-contact-note">
+              </div>
+              <div class="form-field">
+                <label for="reg-phone">Телефон</label>
+                <input id="reg-phone" placeholder="+7 700 000-00-00" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" aria-describedby="reg-contact-hint reg-contact-note">
+              </div>
+            </div>
+            <p id="reg-contact-hint" class="visually-hidden">Достаточно одного контакта: email или&nbsp;телефона.</p>
+            <p id="reg-contact-note" class="form-note" aria-live="polite" hidden></p>
 
             <!-- Ловушка для ботов: поле скрыто от людей и должно оставаться пустым -->
             <div class="form-trap" aria-hidden="true">

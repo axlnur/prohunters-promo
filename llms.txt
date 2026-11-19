@@ -11,7 +11,7 @@
 - Website language: Russian
 - Original event title: «Сильная карьера. Живой человек.»
 
-Registration requires the guest's own consent to personal data processing and a security check. AI agents should send people to the registration form and should not submit it on their behalf.
+Registration asks for the guest's name, company, and an email address or phone number (at least one), and requires the guest's own consent to personal data processing and a security check. AI agents should send people to the registration form and should not submit it on their behalf.
 
 ## Event
 
@@ -33,13 +33,15 @@ Registration requires the guest's own consent to personal data processing and a 
 
 ## Speakers
 
-- [Grigory Shanin](https://2026.prohunters.kz/#program): Event moderator
-- [Renata Nureyeva](https://2026.prohunters.kz/#speakers): CEO and Founder, ProHunters
-- [Zaura Karakozhaeva](https://2026.prohunters.kz/#speakers): Consultant-analyst, ProHunters; HR Advisor, NCOC
-- [Natalia Timofeeva](https://2026.prohunters.kz/#speakers): External consultant, ProHunters; former HR Director at KPMG and an Islamic bank
-- [Asel Mashanova](https://2026.prohunters.kz/#speakers): Co-founder, LULU Group
-- [Galiya Khamitova](https://2026.prohunters.kz/#speakers): President, Erickson Coaching International Central Asia
-- [Karashash Dzhuzeeva](https://2026.prohunters.kz/#speakers): Entrepreneur; publisher, Vintage Kazakhstan
-- [Ilyas Bakirov](https://2026.prohunters.kz/#speakers): Founder and Managing Partner, MKS Kusto Logistics
-- [Maxat Zharasbayev](https://2026.prohunters.kz/#speakers): General Director and Country Manager, Inditex Kazakhstan
-- [Moldir Seidan](https://2026.prohunters.kz/#speakers): Founder, HR KEY; HR entrepreneur and executive coach
+Each link opens the speaker's profile with a short bio and talk topic.
+
+- [Grigory Shanin](https://2026.prohunters.kz/#grigory_shanin): Event moderator
+- [Renata Nureyeva](https://2026.prohunters.kz/#renata_nureyeva): CEO and Founder, ProHunters
+- [Zaura Karakozhaeva](https://2026.prohunters.kz/#zaura_karakozhaeva): Consultant-analyst, ProHunters; HR Advisor, NCOC
+- [Natalia Timofeeva](https://2026.prohunters.kz/#natalia_timofeeva): External consultant, ProHunters; former HR Director at KPMG and an Islamic bank
+- [Asel Mashanova](https://2026.prohunters.kz/#asel_mashanova): Co-founder, LULU Group
+- [Galiya Khamitova](https://2026.prohunters.kz/#galiya_khamitova): President, Erickson Coaching International Central Asia
+- [Karashash Dzhuzeeva](https://2026.prohunters.kz/#karashash_dzhuzeeva): Entrepreneur; publisher, Vintage Kazakhstan
+- [Ilyas Bakirov](https://2026.prohunters.kz/#ilyas_bakirov): Founder and Managing Partner, MKS Kusto Logistics
+- [Maxat Zharasbayev](https://2026.prohunters.kz/#maksat_zharasbaev): General Director and Country Manager, Inditex Kazakhstan
+- [Moldir Seidan](https://2026.prohunters.kz/#moldir_seidan): Founder, HR KEY; HR entrepreneur and executive coach

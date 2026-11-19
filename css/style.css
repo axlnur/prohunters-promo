@@ -217,6 +217,11 @@ body {
   padding: 0 var(--spacing-md);
 }
 
+/* Tab переключает разделы целиком, их положение показывает прокрутка, а не рамка */
+[data-nav-section]:focus {
+  outline: none;
+}
+
 .section-title {
   text-align: center;
   margin-bottom: var(--spacing-lg);
@@ -1952,6 +1957,11 @@ body {
 
 .speaker-modal.active {
   display: block;
+}
+
+/* Проявляется только затемнение. Прозрачность на самом .speaker-modal отключала бы
+   размытие фона, и сквозь карточку на мгновение была бы видна страница. */
+.speaker-modal.active .modal-overlay {
   animation: fadeIn var(--duration-normal) ease;
 }
 
@@ -2020,6 +2030,8 @@ body {
   position: sticky;
   top: 0;
   height: fit-content;
+  border-radius: var(--radius-md);
+  background: var(--color-cream);
 }
 
 .modal-photo img {
@@ -2030,6 +2042,12 @@ body {
   object-position: center;
   border-radius: var(--radius-md);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: opacity var(--duration-fast) ease;
+}
+
+/* Фото появляется после загрузки, а не рывком и не с портретом предыдущего спикера */
+.modal-photo img:not(.is-loaded) {
+  opacity: 0;
 }
 
 .modal-info {
@@ -2472,13 +2490,12 @@ body {
   }
 }
 
+/* Карточка диалога въезжает непрозрачной, чтобы сквозь неё не просвечивала страница */
 @keyframes slideUp {
   from {
-    opacity: 0;
     transform: translateY(50px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -2907,7 +2924,8 @@ body {
   }
 
   .moderator-accent-block,
-  .speaker-modal.active,
+  .speaker-modal.active .modal-overlay,
+  .modal-photo img,
   .modal-content,
   .modal-close,
   .speaker-mini-card {
@@ -3318,6 +3336,46 @@ body {
 .form-consent input:focus-visible {
   outline: 3px solid var(--color-gold);
   outline-offset: 2px;
+}
+
+.cta-content .form-note {
+  margin: -6px 0 20px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #ffc9c9;
+  text-shadow: none;
+}
+
+.cta-content .form-note--suggestion {
+  color: var(--white-90);
+}
+
+.form-note__fix {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-gold-light);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.form-note__fix:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.form-field input[aria-invalid="true"] {
+  border-color: #ff8a8a;
+  box-shadow: 0 0 0 1px #ff8a8a;
+}
+
+@media (max-width: 480px) {
+  .form-row--contacts {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
 }
 
 .form-trap {

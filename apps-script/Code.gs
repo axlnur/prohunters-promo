@@ -12,13 +12,15 @@
 
 var CONFIG = {
   SHEET_NAME: 'Регистрации',
-  HEADERS: ['Дата и время', 'Имя', 'Фамилия', 'Компания', 'Согласие'],
+  // Новые столбцы добавляются в конец, чтобы не сдвигать уже записанные строки.
+  HEADERS: ['Дата и время', 'Имя', 'Фамилия', 'Компания', 'Согласие', 'Email', 'Телефон'],
   TIME_ZONE: 'Asia/Almaty',
   CLOSES_AT_MS: Date.parse('2026-12-11T09:15:00+05:00'),
   MAX_BODY_LENGTH: 4096,
   MAX_TOKEN_LENGTH: 2048,
   MAX_REGISTRATIONS: 1500,
-  LIMITS: { firstName: 80, lastName: 80, company: 160 },
+  LIMITS: { firstName: 80, lastName: 80, company: 160, email: 254, phone: 25 },
+  PHONE_DIGITS: { min: 10, max: 15 },
   // Высокий лимит до капчи бережёт квоты, низкий после капчи ограничивает записи.
   RATE_LIMITS: {
     incoming: [{ seconds: 60, max: 60 }, { seconds: 3600, max: 600 }],
@@ -32,6 +34,11 @@ var CONFIG = {
 
 var NAME_PATTERN = /^\p{L}[\p{L}\p{M} .'’-]*$/u;
 var COMPANY_PATTERN = /^[\p{L}\p{N}«"'“„(][\p{L}\p{M}\p{N} .,'’"«»“”„&()+\/№#:!-]*$/u;
+// Те же правила проверки email и телефона, что в js/app.js.
+var EMAIL_LOCAL_PATTERN = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+$/i;
+var EMAIL_LABEL_PATTERN = /^(?!-)[\p{L}\p{N}-]{1,63}(?<!-)$/u;
+var EMAIL_TLD_PATTERN = /^(?:\p{L}{2,}|xn--[a-z0-9-]+)$/iu;
+var PHONE_PATTERN = /^\+?[\d\s()-]+$/;
 var FORMULA_PREFIX_PATTERN = /^[=+\-@\t\r\n＝＋－＠]/;
 
 function doGet() {
@@ -90,7 +97,46 @@ function validateGuest_(body) {
   if (!NAME_PATTERN.test(firstName) || !NAME_PATTERN.test(lastName)) return null;
   if (!COMPANY_PATTERN.test(company)) return null;
 
-  return { firstName: firstName, lastName: lastName, company: company };
+  // Нужен хотя бы один контакт: email, телефон или оба.
+  var email = cleanOptionalText_(body.email, CONFIG.LIMITS.email);
+  var phone = cleanOptionalText_(body.phone, CONFIG.LIMITS.phone);
+
+  if (email === null || phone === null) return null;
+  if (!email && !phone) return null;
+  if (email && !isValidEmail_(email)) return null;
+  if (phone && !isValidPhone_(phone)) return null;
+
+  return { firstName: firstName, lastName: lastName, company: company, email: email, phone: phone };
+}
+
+// Пустое или отсутствующее значение даёт '', слишком длинное или не строка даёт null.
+function cleanOptionalText_(value, maxLength) {
+  if (value === undefined || value === null || value === '') return '';
+  if (typeof value !== 'string') return null;
+  if (!value.trim()) return '';
+
+  return cleanText_(value, maxLength) || null;
+}
+
+function isValidEmail_(email) {
+  var at = email.lastIndexOf('@');
+  var local = email.slice(0, at);
+  var labels = email.slice(at + 1).split('.');
+
+  return at > 0 && email.length <= 254 && local.length <= 64 &&
+    EMAIL_LOCAL_PATTERN.test(local) && !/^\.|\.\.|\.$/.test(local) &&
+    labels.length >= 2 &&
+    labels.every(function (label) { return EMAIL_LABEL_PATTERN.test(label); }) &&
+    EMAIL_TLD_PATTERN.test(labels[labels.length - 1]);
+}
+
+// Код +7 (Казахстан и Россия) даёт ровно 11 цифр, для других стран от 10 до 15.
+function isValidPhone_(phone) {
+  var digits = phone.replace(/\D/g, '').length;
+
+  if (!PHONE_PATTERN.test(phone)) return false;
+  if (/^\+\s*7/.test(phone)) return digits === 11;
+  return digits >= CONFIG.PHONE_DIGITS.min && digits <= CONFIG.PHONE_DIGITS.max;
 }
 
 function cleanText_(value, maxLength) {
@@ -172,7 +218,9 @@ function saveGuest_(guest) {
       neutralizeFormula_(guest.firstName),
       neutralizeFormula_(guest.lastName),
       neutralizeFormula_(guest.company),
-      'Да'
+      'Да',
+      neutralizeFormula_(guest.email),
+      neutralizeFormula_(guest.phone)
     ];
 
     sheet.getRange(sheet.getLastRow() + 1, 1, 1, row.length)
@@ -188,27 +236,33 @@ function saveGuest_(guest) {
 function getSheet_() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName(CONFIG.SHEET_NAME);
-  if (sheet) return sheet;
 
-  sheet = spreadsheet.insertSheet(CONFIG.SHEET_NAME);
-  sheet.getRange(1, 1, 1, CONFIG.HEADERS.length)
-    .setValues([CONFIG.HEADERS])
-    .setFontWeight('bold');
-  sheet.setFrozenRows(1);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(CONFIG.SHEET_NAME);
+    sheet.setFrozenRows(1);
+  }
+
+  // Лист, созданный до появления новых столбцов, получает недостающие заголовки.
+  if (sheet.getLastColumn() < CONFIG.HEADERS.length) {
+    sheet.getRange(1, 1, 1, CONFIG.HEADERS.length)
+      .setValues([CONFIG.HEADERS])
+      .setFontWeight('bold');
+  }
   return sheet;
 }
 
+// Заявка с другим контактом сохраняется, чтобы исправленный email или телефон не потерялся.
 function isDuplicate_(sheet, guest, guestCount) {
-  var expected = guestKey_(guest.firstName, guest.lastName, guest.company);
-  var rows = sheet.getRange(2, 2, guestCount, 3).getDisplayValues();
+  var expected = guestKey_([guest.firstName, guest.lastName, guest.company, guest.email, guest.phone]);
+  var rows = sheet.getRange(2, 1, guestCount, CONFIG.HEADERS.length).getDisplayValues();
 
   return rows.some(function (row) {
-    return guestKey_(row[0], row[1], row[2]) === expected;
+    return guestKey_([row[1], row[2], row[3], row[5], row[6]]) === expected;
   });
 }
 
-function guestKey_(firstName, lastName, company) {
-  return [firstName, lastName, company]
+function guestKey_(values) {
+  return values
     .map(function (value) { return String(value).replace(/^'/, '').toLowerCase(); })
     .join('|');
 }
