@@ -42,7 +42,7 @@ Line breaks are controlled by hand:
 
 ## Speaker portraits
 
-Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>.jpg` (960×1200) and `<slug>-avatar.jpg` (280×280), both JPEG sRGB. In the full portrait, centre the eyes horizontally, place the eye line at 38% of the height, and make the face (forehead to chin) 36% of the height, so cards, dialogs, and avatars line up. When a tilted head or a hand near the chin makes the face sit low, raise the eye line to about 35%, as for Zaura, Asel, and Moldir. The avatar is the 696×696 square at (132, 164) of the full portrait, scaled down. Save both at JPEG quality 88 with 4:4:4 chroma and an embedded sRGB profile.
+Files live in `img/speakers/` and use the speaker's `data-speaker` slug: `<slug>.jpg` (960×1200) and `<slug>-avatar.jpg` (280×280), both JPEG sRGB. In the full portrait, centre the eyes horizontally, place the eye line at 38% of the height, and make the face (forehead to chin) 36% of the height, so cards, dialogs, and avatars line up. When a tilted head or a hand near the chin makes the face sit low, raise the eye line to about 35%, as for Zaura, Asel, Moldir, and Maksat. The avatar is the 696×696 square at (132, 164) of the full portrait, scaled down; for Maksat it starts at y 72 so his face sits lower in the circle. Save both at JPEG quality 88 with 4:4:4 chroma and an embedded sRGB profile.
 
 ## Registration
 
